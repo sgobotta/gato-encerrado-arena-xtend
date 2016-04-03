@@ -1,7 +1,7 @@
 package principal
 
-import gato_encerrado.core.Usuario
 
+import org.uqbar.Usuario
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.windows.ErrorsPanel
