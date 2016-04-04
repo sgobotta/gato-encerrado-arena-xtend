@@ -32,7 +32,6 @@ class AcaHayGatoEncerradoWindow extends MainWindow<Usuario> {
 		]
 		
 		new Label(mainPanel) => [
-			
 			text = "Acá hay gato encerrado..."
 			fontSize = 20
 			background = Color.RED
