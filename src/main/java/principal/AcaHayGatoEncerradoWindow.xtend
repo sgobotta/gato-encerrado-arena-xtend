@@ -2,16 +2,15 @@ package principal
 
 
 import org.uqbar.Usuario
-import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.windows.ErrorsPanel
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.MainWindow
 import org.uqbar.arena.layout.ColumnLayout
-import java.awt.Checkbox
-import java.awt.CheckboxGroup
 import java.awt.Color
+import org.uqbar.arena.widgets.CheckBox
+import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.widgets.List
 
 class AcaHayGatoEncerradoWindow extends MainWindow<Usuario> {
 	new() {
@@ -22,9 +21,10 @@ class AcaHayGatoEncerradoWindow extends MainWindow<Usuario> {
 		this.title = ""
 
 		// Panel cabecera con el panel de error
-		var cabeceraPanel = new Panel(mainPanel)		
 		
-		new ErrorsPanel(cabeceraPanel, "")
+		//var cabeceraPanel = new Panel(mainPanel)		
+		
+		//new ErrorsPanel(cabeceraPanel, "")
 		
 		new Label(mainPanel) => [
 			
@@ -34,7 +34,7 @@ class AcaHayGatoEncerradoWindow extends MainWindow<Usuario> {
 		new Label(mainPanel) => [
 			
 			text = "Acá hay gato encerrado..."
-			fontSize = 18
+			fontSize = 20
 			background = Color.RED
 		]
 		
@@ -48,11 +48,17 @@ class AcaHayGatoEncerradoWindow extends MainWindow<Usuario> {
 		var laberintosPanel = new Panel(contenedorPanel)
 		
 		new Label(laberintosPanel).text = "Laberintos"
+		
+		// Lista de laberintos
+		new List(laberintosPanel) => [
+			
+		]
 
-		// Panel de botones
-		var botoneraLaberintoPanel = new Panel(laberintosPanel)
-
-		// ScrollView de Laberintos
+		// Panel de botones para laberintos
+		var botoneraLaberintoPanel = new Panel(laberintosPanel) => [
+			
+			layout = new HorizontalLayout
+		]
 
 		new Button(botoneraLaberintoPanel) => [
 			caption = "Agregar Laberinto"
@@ -62,17 +68,30 @@ class AcaHayGatoEncerradoWindow extends MainWindow<Usuario> {
 			caption = "Quitar Laberinto"
 		]
 		
-		// Panel de Habitaciones
+		// Panel de habitaciones
 		var habitacionesPanel = new Panel(contenedorPanel)
 		
-		new Label(habitacionesPanel).text = "Habitaciones"
+		// Panel de título de laberinto seleccionado
 		
-		new Label(habitacionesPanel).text = "Nombre del Laberinto"
+		var habitacionesTituloPanel = new Panel(habitacionesPanel) => [
+			
+			layout = new ColumnLayout(2)
+		]
 		
-		// ScrollView de Habitaciones
+		new Label(habitacionesTituloPanel).text = "Habitaciones de: "
 		
-		// Panel de botones
-		var botoneraHabitacionesPanel = new Panel(habitacionesPanel)
+		new Label(habitacionesTituloPanel).text = "Nombre del Laberinto"
+		
+		// Lista de Habitaciones
+		new List(habitacionesPanel) => [
+			
+		]
+		
+		// Panel de botones para habitaciones
+		var botoneraHabitacionesPanel = new Panel(habitacionesPanel) => [
+			
+			layout = new HorizontalLayout
+		]
 
 		new Button(botoneraHabitacionesPanel) => [
 			caption = "Agregar Habitación"
@@ -85,17 +104,50 @@ class AcaHayGatoEncerradoWindow extends MainWindow<Usuario> {
 		// Panel de Habitacion Seleccionada
 		var habitacionSeleccionadaPanel = new Panel(contenedorPanel)
 		
-		new Label(habitacionSeleccionadaPanel).text = "Habitación"
+		// Panel de titulo de habitación seleccionada
 		
-		new Label(habitacionSeleccionadaPanel).text = "Nombre de Habitación"
+		var habitacionTituloPanel = new Panel(habitacionSeleccionadaPanel) => [
+			
+			layout = new ColumnLayout(2)
+		]
+		
+		new Label(habitacionTituloPanel).text = "Habitación seleccionada: "
+		
+		new Label(habitacionTituloPanel).text = "Nombre de Habitación"
+		
+		
+		// Panel de CheckBox para una habitación seleccionada
+		
+		var habitacionCheckBoxPanel = new Panel(habitacionSeleccionadaPanel) => [
+			
+			layout = new ColumnLayout(2)
+		]
+		
+		new CheckBox(habitacionCheckBoxPanel) => [
+			
+		]
+		
+		new Label(habitacionCheckBoxPanel).text = "¿Es inicial?"
+		
+		new CheckBox(habitacionCheckBoxPanel) => [
+			
+		]
+		
+		new Label(habitacionCheckBoxPanel).text = "¿Es final?"
+		
 		
 		new Label(habitacionSeleccionadaPanel).text = "Acciones"
 		
+		// Lista de acciones
+		new List(habitacionSeleccionadaPanel) => [
+			
+		]
 		
-		// ScrollView de Acciones
-		
-		// Panel de botones
-		var botoneraHabitacionSeleccionadaPanel = new Panel(habitacionSeleccionadaPanel)
+		// Panel de botones para acciones
+		var botoneraHabitacionSeleccionadaPanel = new Panel(habitacionSeleccionadaPanel) => [
+			
+			layout = new HorizontalLayout
+		]
 
 		new Button(botoneraHabitacionSeleccionadaPanel) => [
 			caption = "Agregar Acción"
