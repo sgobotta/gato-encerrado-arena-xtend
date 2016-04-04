@@ -31,18 +31,26 @@ class AgregarAccionWindow extends SimpleWindow<Habitacion> {
 		
 		new Button(botoneraPanel) => [
 			caption = "Agregar acción de Ir a otra habitación"
-			this.close
+			onClick = [ | this.crearAccionDeIrAOtraHabitacion ]
 		]
 		
 		new Button(botoneraPanel) => [
 			caption = "Agregar acción de Agarrar un elemento"
-			
+			onClick = [ | this.crearAccionDeAgarrarElemento ]
 		] 
 	
 		new Button(botoneraPanel) => [
 		caption = "Agregar acción de Usar un elemento"
 		
 		] 	
+	}
+	
+	def crearAccionDeAgarrarElemento() {
+		new AgregarAccionAgarrarElementoWindow(this, modelObject).open()
+	}
+	
+	def crearAccionDeIrAOtraHabitacion() {
+		new AgregarAccionIrAHabitacionWindow(this, modelObject).open()
 	}
 	
 		override protected addActions(Panel actionsPanel) {

@@ -11,7 +11,7 @@ import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 
 // El Observable aparenta ser Habitacion, donde se guardará un "item"
-class AccionAgarrarElementoWindow extends SimpleWindow<Habitacion> {
+class AgregarAccionAgarrarElementoWindow extends SimpleWindow<Habitacion> {
 	
 	new(WindowOwner parent, Habitacion model) {
 		super(parent, model)

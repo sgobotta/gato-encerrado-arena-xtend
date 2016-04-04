@@ -13,7 +13,7 @@ import org.uqbar.arena.layout.HorizontalLayout
 // El Observable aparenta ser Habitacion, sin embargo se van a necesitar
 // todas las habitaciones disponibles en un Laberinto y todos los elementos
 // existentes en las habitaciones de un Laberinto
-class AccionIrAHabitacionWindow extends SimpleWindow<Habitacion> {
+class AgregarAccionIrAHabitacionWindow extends SimpleWindow<Habitacion> {
 	
 	new(WindowOwner parent, Habitacion model) {
 		super(parent, model)
