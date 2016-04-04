@@ -15,7 +15,6 @@ import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.windows.ErrorsPanel
 import acciones.AgregarAccionWindow
 import org.uqbar.Habitacion
-import org.uqbar.arena.windows.Dialog
 
 class AcaHayGatoEncerradoWindow extends SimpleWindow<Usuario> {
 

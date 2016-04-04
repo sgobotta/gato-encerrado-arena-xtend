@@ -9,6 +9,7 @@ import org.uqbar.Habitacion
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.widgets.List
 
 // El Observable aparenta ser Habitacion, sin embargo se van a necesitar
 // todas las habitaciones disponibles en un Laberinto y todos los elementos
@@ -25,11 +26,11 @@ class AgregarAccionIrAHabitacionWindow extends SimpleWindow<Habitacion> {
 		mainPanel.layout = new VerticalLayout()
 	
 		new Label(mainPanel) => [	
-			text = "Seleccione un elemento que puede ser usado"
+			text = "Selecciona una habitación a la cual ir"
 		]
 		
-		new Selector<Habitacion>(mainPanel) => [
-			// Elementos para usar
+		new List<Habitacion>(mainPanel) => [
+			
 			allowNull(false)
 		]
 	
