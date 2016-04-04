@@ -10,7 +10,7 @@ import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.layout.HorizontalLayout
 
 // El Observable aparenta ser Habitacion, donde se guardará un "item"
-class CrearAccionWindow extends SimpleWindow<Habitacion> {
+class AgregarAccionWindow extends SimpleWindow<Habitacion> {
 	
 	new(WindowOwner parent, Habitacion model) {
 		super(parent, model)

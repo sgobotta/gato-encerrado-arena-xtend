@@ -5,26 +5,33 @@ import org.uqbar.Usuario
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.windows.MainWindow
 import org.uqbar.arena.layout.ColumnLayout
 import java.awt.Color
 import org.uqbar.arena.widgets.CheckBox
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.List
+import org.uqbar.arena.windows.SimpleWindow
+import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.arena.windows.ErrorsPanel
+import acciones.AgregarAccionWindow
+import org.uqbar.Habitacion
+import org.uqbar.arena.windows.Dialog
 
-class AcaHayGatoEncerradoWindow extends MainWindow<Usuario> {
-	new() {
-		super(new Usuario("Nuevo Usuario"))
+class AcaHayGatoEncerradoWindow extends SimpleWindow<Usuario> {
+
+
+	new(WindowOwner parent, Usuario model) {
+		super(parent, model)
 	}
-
-	override createContents(Panel mainPanel) {
+	
+	override createFormPanel(Panel mainPanel) {
 		this.title = ""
 
 		// Panel cabecera con el panel de error
 		
-		//var cabeceraPanel = new Panel(mainPanel)		
+		var cabeceraPanel = new Panel(mainPanel)		
 		
-		//new ErrorsPanel(cabeceraPanel, "")
+		new 	ErrorsPanel(cabeceraPanel, "")
 		
 		new Label(mainPanel) => [
 			
@@ -42,6 +49,7 @@ class AcaHayGatoEncerradoWindow extends MainWindow<Usuario> {
 		var contenedorPanel = new Panel(mainPanel) => [
 			
 			layout = new ColumnLayout(3)
+				
 		]
 		
 		// Panel de laberintos
@@ -51,7 +59,7 @@ class AcaHayGatoEncerradoWindow extends MainWindow<Usuario> {
 		
 		// Lista de laberintos
 		new List(laberintosPanel) => [
-			
+			height = 300
 		]
 
 		// Panel de botones para laberintos
@@ -84,7 +92,7 @@ class AcaHayGatoEncerradoWindow extends MainWindow<Usuario> {
 		
 		// Lista de Habitaciones
 		new List(habitacionesPanel) => [
-			
+			height = 300
 		]
 		
 		// Panel de botones para habitaciones
@@ -99,6 +107,7 @@ class AcaHayGatoEncerradoWindow extends MainWindow<Usuario> {
 
 		new Button(botoneraHabitacionesPanel) => [
 			caption = "Quitar Habitación"
+			
 		]
 		
 		// Panel de Habitacion Seleccionada
@@ -141,24 +150,35 @@ class AcaHayGatoEncerradoWindow extends MainWindow<Usuario> {
 		// Lista de acciones
 		new List(habitacionSeleccionadaPanel) => [
 			
+			height = 300
 		]
 		
 		// Panel de botones para acciones
 		var botoneraHabitacionSeleccionadaPanel = new Panel(habitacionSeleccionadaPanel) => [
 			
 			layout = new HorizontalLayout
+			
 		]
 
 		new Button(botoneraHabitacionSeleccionadaPanel) => [
 			caption = "Agregar Acción"
+			onClick = [ | this.agregarAccion]
 		]
 
 		new Button(botoneraHabitacionSeleccionadaPanel) => [
 			caption = "Quitar Acción"
 		]
+		
+	}
+	
+	def agregarAccion() {
+		new AgregarAccionWindow(this, new Habitacion("MEXICANA")).open()
+	}
+	
+	override protected addActions(Panel actionsPanel) {
+		
 	}
 
-	def static main(String[] args) {
-		new AcaHayGatoEncerradoWindow().startApplication
-	}
+
+	
 }
