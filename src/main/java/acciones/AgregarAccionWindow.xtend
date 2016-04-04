@@ -15,10 +15,11 @@ class AgregarAccionWindow extends SimpleWindow<Habitacion> {
 	new(WindowOwner parent, Habitacion model) {
 		super(parent, model)
 		this.setTitle("Agregar acción")
+		this.taskDescription = ""
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
-	
+		
 		mainPanel.layout = new VerticalLayout()
 	
 		new Label(mainPanel) => [	
@@ -40,9 +41,13 @@ class AgregarAccionWindow extends SimpleWindow<Habitacion> {
 		] 
 	
 		new Button(botoneraPanel) => [
-		caption = "Agregar acción de Usar un elemento"
-		
+			caption = "Agregar acción de Usar un elemento"
+			onClick = [ | this.crearAccionDeUsarElemento ]
 		] 	
+	}
+	
+	def crearAccionDeUsarElemento() {
+		new AgregarAccionUsarElementoWindow(this, modelObject).open()
 	}
 	
 	def crearAccionDeAgarrarElemento() {
@@ -54,26 +59,7 @@ class AgregarAccionWindow extends SimpleWindow<Habitacion> {
 	}
 	
 		override protected addActions(Panel actionsPanel) {
-		
-		/**
-		
-		var descripcion = new Label(actionsPanel)
-		descripcion.text = ""
-		
-		var selector = new Selector<Habitacion>(actionsPanel) => [
-			allowNull(false)
-			]
-		
-		var botonAceptar = new Button(actionsPanel) => [
-			caption = "Aceptar"
-		]
-				
-		var botonCancelar = new Button(actionsPanel) => [
-			caption = "Cancelar"
-		]
-	}
-	
-	*/
 	
 	}
+	
 }

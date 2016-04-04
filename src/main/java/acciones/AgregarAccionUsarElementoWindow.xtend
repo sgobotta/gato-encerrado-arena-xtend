@@ -12,7 +12,7 @@ import org.uqbar.arena.layout.HorizontalLayout
 
 // El Observable aparenta ser Habitacion, sin embargo se van a necesitar
 // todas las habitaciones disponibles en un Laberinto
-class AccionUsarElementoWindow extends SimpleWindow<Habitacion> {
+class AgregarAccionUsarElementoWindow extends SimpleWindow<Habitacion> {
 	
 	new(WindowOwner parent, Habitacion model) {
 		super(parent, model)
@@ -24,7 +24,7 @@ class AccionUsarElementoWindow extends SimpleWindow<Habitacion> {
 		mainPanel.layout = new VerticalLayout()
 	
 		new Label(mainPanel) => [	
-			text = "Selecciona una habitación a la cual ir"
+			text = "Seleccione el elemento que puede ser usado"
 		]
 		
 		new Selector<Habitacion>(mainPanel) => [
@@ -40,13 +40,12 @@ class AccionUsarElementoWindow extends SimpleWindow<Habitacion> {
 		new Button(mainPanel) => [
 			
 			caption = "Agregar acción"
-			onClick[ | // Ir a AgregarAccionWindow]
+			onClick = [ | new AgregarAccionWindow(this, new Habitacion("MEXICANA")).open() ]
 		]
 		
 		new Label(mainPanel) => [
 			
 			// caption = nombre de la accion seleccionada
-			]
 		]
 	
 		val botoneraPanel = new Panel(mainPanel) => [

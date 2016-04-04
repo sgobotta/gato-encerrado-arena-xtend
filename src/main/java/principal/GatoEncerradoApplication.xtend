@@ -2,7 +2,7 @@ package principal
 
 import org.uqbar.arena.Application
 import org.uqbar.arena.windows.Window
-import org.uqbar.Usuario
+import org.uqbar.appmodel.GatoEncerradoAppModel
 
 class GatoEncerradoApplication extends Application {
 	
@@ -11,7 +11,7 @@ class GatoEncerradoApplication extends Application {
 	}
 	
 	override protected Window<?> createMainWindow() {
-		return new AcaHayGatoEncerradoWindow(this, new Usuario("Nuevo Usuario"))
+		return new AcaHayGatoEncerradoWindow(this, new GatoEncerradoAppModel())
 	}
 	
 }

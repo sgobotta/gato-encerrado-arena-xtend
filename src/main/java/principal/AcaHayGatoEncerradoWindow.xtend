@@ -1,7 +1,6 @@
 package principal
 
 
-import org.uqbar.Usuario
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
@@ -15,11 +14,12 @@ import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.windows.ErrorsPanel
 import acciones.AgregarAccionWindow
 import org.uqbar.Habitacion
+import org.uqbar.appmodel.GatoEncerradoAppModel
 
-class AcaHayGatoEncerradoWindow extends SimpleWindow<Usuario> {
+class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 
 
-	new(WindowOwner parent, Usuario model) {
+	new(WindowOwner parent, GatoEncerradoAppModel model) {
 		super(parent, model)
 	}
 	
@@ -30,11 +30,11 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<Usuario> {
 		
 		var cabeceraPanel = new Panel(mainPanel)		
 		
-		new 	ErrorsPanel(cabeceraPanel, "")
+		new ErrorsPanel(cabeceraPanel, "")
 		
 		new Label(mainPanel) => [
 			
-			text = "Hola " + modelObject.nombre + "! Administrá todos tus laberintos"
+			text = "Hola " + modelObject + "! Administrá todos tus laberintos"
 		]
 		
 		new Label(mainPanel) => [
@@ -161,7 +161,7 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<Usuario> {
 
 		new Button(botoneraHabitacionSeleccionadaPanel) => [
 			caption = "Agregar Acción"
-			onClick = [ | this.agregarAccion]
+			onClick = [ | this.agregarAccion ]
 		]
 
 		new Button(botoneraHabitacionSeleccionadaPanel) => [
