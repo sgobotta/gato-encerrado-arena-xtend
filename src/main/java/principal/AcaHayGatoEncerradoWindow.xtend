@@ -15,6 +15,10 @@ import org.uqbar.arena.windows.ErrorsPanel
 import acciones.AgregarAccionWindow
 import org.uqbar.Habitacion
 import org.uqbar.appmodel.GatoEncerradoAppModel
+import org.uqbar.arena.bindings.PropertyAdapter
+import org.uqbar.Laberinto
+
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 
 class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 
@@ -35,7 +39,7 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		
 		new Label(mainPanel) => [
 			
-			text = "Hola " + modelObject + "! Administrá todos tus laberintos"
+			text = "Hola " + modelObject.usuario.nombre + "! Administrá todos tus laberintos"
 		]
 		
 		new Label(mainPanel) => [
@@ -65,6 +69,12 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		
 		// Lista de laberintos
 		new List(laberintosPanel) => [
+			
+			(items <=> "usuario.laberintos").adapter = new PropertyAdapter(Laberinto, "nombreLaberinto")
+			height = 150
+			width = 130
+			value <=> "laberintoSeleccionado"
+			
 			height = 300
 		]
 
@@ -109,6 +119,10 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		// *************************************************
 		
 		new List(habitacionesPanel) => [
+			(items <=> "laberintoSeleccionado.habitaciones").adapter = new PropertyAdapter(Habitacion, "nombreHabitacion")
+			height = 150
+			width = 130
+			value <=> "habitacionSeleccionada"
 			height = 300
 		]
 		
@@ -160,13 +174,13 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		]
 		
 		new CheckBox(habitacionCheckBoxPanel) => [
-			
+			bindValueToProperty("habitacionSeleccionada.esInicial")
 		]
 		
 		new Label(habitacionCheckBoxPanel).text = "¿Es inicial?"
 		
 		new CheckBox(habitacionCheckBoxPanel) => [
-			
+			bindValueToProperty("habitacionSeleccionada.esFinal")
 		]
 		
 		new Label(habitacionCheckBoxPanel).text = "¿Es final?"
@@ -205,7 +219,7 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 	}
 	
 	def agregarAccion() {
-		new AgregarAccionWindow(this, new Habitacion("MEXICANA")).open()
+		new AgregarAccionWindow(this, new Habitacion()).open()
 	}
 	
 	override protected addActions(Panel actionsPanel) {

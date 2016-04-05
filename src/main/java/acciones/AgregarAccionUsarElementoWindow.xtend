@@ -40,7 +40,7 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<Habitacion> {
 		new Button(mainPanel) => [
 			
 			caption = "Agregar acción"
-			onClick = [ | new AgregarAccionWindow(this, new Habitacion("MEXICANA")).open() ]
+			onClick = [ | new AgregarAccionWindow(this, new Habitacion()).open() ]
 		]
 		
 		new Label(mainPanel) => [
