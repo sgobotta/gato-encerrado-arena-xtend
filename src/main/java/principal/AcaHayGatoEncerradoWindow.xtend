@@ -26,8 +26,9 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 	override createFormPanel(Panel mainPanel) {
 		this.title = ""
 
-		// Panel cabecera con el panel de error
-		
+		// *************************************************
+		// ** Panel cabecera con el panel de error
+		// *************************************************
 		var cabeceraPanel = new Panel(mainPanel)		
 		
 		new ErrorsPanel(cabeceraPanel, "")
@@ -44,14 +45,20 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 			background = Color.RED
 		]
 		
-		// Panel contenedor principal de tres paneles
+		// *************************************************
+		// ** Panel contenedor principal de tres paneles
+		// *************************************************
+		
 		var contenedorPanel = new Panel(mainPanel) => [
 			
 			layout = new ColumnLayout(3)
 				
 		]
 		
-		// Panel de laberintos
+		// *************************************************
+		// ** Panel de laberintos
+		// *************************************************
+		
 		var laberintosPanel = new Panel(contenedorPanel)
 		
 		new Label(laberintosPanel).text = "Laberintos"
@@ -61,7 +68,10 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 			height = 300
 		]
 
-		// Panel de botones para laberintos
+		// *************************************************
+		// ** Panel de botones para laberintos
+		// *************************************************
+		
 		var botoneraLaberintoPanel = new Panel(laberintosPanel) => [
 			
 			layout = new HorizontalLayout
@@ -75,10 +85,15 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 			caption = "Quitar Laberinto"
 		]
 		
-		// Panel de habitaciones
+		// *************************************************
+		// ** Panel de habitaciones
+		// *************************************************
+		
 		var habitacionesPanel = new Panel(contenedorPanel)
 		
-		// Panel de título de laberinto seleccionado
+		// *************************************************
+		// ** Panel de título de laberinto seleccionado
+		// *************************************************
 		
 		var habitacionesTituloPanel = new Panel(habitacionesPanel) => [
 			
@@ -89,12 +104,18 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		
 		new Label(habitacionesTituloPanel).text = "Nombre del Laberinto"
 		
-		// Lista de Habitaciones
+		// *************************************************
+		// ** Lista de Habitaciones
+		// *************************************************
+		
 		new List(habitacionesPanel) => [
 			height = 300
 		]
 		
-		// Panel de botones para habitaciones
+		// *************************************************
+		// ** Panel de botones para habitaciones
+		// *************************************************
+		
 		var botoneraHabitacionesPanel = new Panel(habitacionesPanel) => [
 			
 			layout = new HorizontalLayout
@@ -109,10 +130,15 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 			
 		]
 		
-		// Panel de Habitacion Seleccionada
+		// *************************************************
+		// ** Panel de Habitacion Seleccionada
+		// *************************************************
+		
 		var habitacionSeleccionadaPanel = new Panel(contenedorPanel)
 		
-		// Panel de titulo de habitación seleccionada
+		// *************************************************
+		// ** Panel de titulo de habitación seleccionada
+		// *************************************************
 		
 		var habitacionTituloPanel = new Panel(habitacionSeleccionadaPanel) => [
 			
@@ -124,7 +150,9 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		new Label(habitacionTituloPanel).text = "Nombre de Habitación"
 		
 		
-		// Panel de CheckBox para una habitación seleccionada
+		// *************************************************
+		// ** Panel de CheckBox para una habitación seleccionada
+		// *************************************************
 		
 		var habitacionCheckBoxPanel = new Panel(habitacionSeleccionadaPanel) => [
 			
@@ -146,13 +174,19 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		
 		new Label(habitacionSeleccionadaPanel).text = "Acciones"
 		
-		// Lista de acciones
+		// *************************************************
+		// ** Lista de acciones
+		// *************************************************
+		
 		new List(habitacionSeleccionadaPanel) => [
 			
 			height = 300
 		]
 		
-		// Panel de botones para acciones
+		// *************************************************
+		// ** Panel de botones para acciones
+		// *************************************************
+		
 		var botoneraHabitacionSeleccionadaPanel = new Panel(habitacionSeleccionadaPanel) => [
 			
 			layout = new HorizontalLayout
