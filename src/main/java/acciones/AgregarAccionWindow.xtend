@@ -8,6 +8,7 @@ import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.appmodel.AgregarAccionAppModel
+import org.uqbar.appmodel.AgregarAccionUsarElementoAppModel
 
 // El Observable aparenta ser Habitacion, donde se guardará un "item"
 class AgregarAccionWindow extends SimpleWindow<AgregarAccionAppModel> {
@@ -47,7 +48,14 @@ class AgregarAccionWindow extends SimpleWindow<AgregarAccionAppModel> {
 	}
 	
 	def crearAccionDeUsarElemento() {
-		new AgregarAccionUsarElementoWindow(this, modelObject).open()
+		new AgregarAccionUsarElementoWindow(this, appModelReconfigUsarElemento(modelObject)).open()
+	}
+	
+	def appModelReconfigUsarElemento(AgregarAccionAppModel oldAppModel){
+		var newAppModel = new AgregarAccionUsarElementoAppModel()
+		newAppModel.laberintoSeleccionado = oldAppModel.laberintoSeleccionado
+		newAppModel.habitacionSeleccionada = oldAppModel.habitacionSeleccionada
+		newAppModel
 	}
 	
 	def crearAccionDeAgarrarElemento() {
@@ -58,8 +66,8 @@ class AgregarAccionWindow extends SimpleWindow<AgregarAccionAppModel> {
 		new AgregarAccionIrAHabitacionWindow(this, modelObject).open()
 	}
 	
-		override protected addActions(Panel actionsPanel) {
-	
+	override protected addActions(Panel actionsPanel) {
+	// Vacio, no se utiliza el actionsPanel.
 	}
 	
 }

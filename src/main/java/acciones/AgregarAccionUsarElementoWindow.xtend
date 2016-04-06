@@ -5,17 +5,18 @@ import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Selector
-import org.uqbar.Habitacion
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.layout.HorizontalLayout
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.appmodel.AgregarAccionUsarElementoAppModel
 import org.uqbar.appmodel.AgregarAccionAppModel
 
 // El Observable aparenta ser Habitacion, sin embargo se van a necesitar
 // todas las habitaciones disponibles en un Laberinto
-class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionAppModel > {
+class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElementoAppModel > {
 	
-	new(WindowOwner parent, AgregarAccionAppModel  model) {
+	new(WindowOwner parent, AgregarAccionUsarElementoAppModel  model) {
 		super(parent, model)
 		this.setTitle("Agregar acción de Usar un elemento")
 	}
@@ -29,9 +30,10 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionAppModel
 		]
 		
 		//El selector debería ser de Item o String, dependiendo de como idententifiquemos a los items, no de Habitacion.
-		new Selector<Habitacion>(mainPanel) => [
-			//Elemento que puede ser usado, hay que preguntar como hacer el bindItems.
+		new Selector<String>(mainPanel) => [
+			(items <=> "laberintoSeleccionado.todosLosItems")
 			allowNull(false)
+			value <=> "itemSeleccionado"
 		]
 	
 		new Label(mainPanel) => [
@@ -42,7 +44,7 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionAppModel
 		new Button(mainPanel) => [
 			
 			caption = "Agregar acción"
-			onClick = [ | new AgregarAccionWindow(this, modelObject).open() ]
+			onClick = [ | new AgregarAccionWindow(this, appModelReconfigAgregarAccion(modelObject)).open() ]
 		]
 		
 		new Label(mainPanel) => [
@@ -71,7 +73,15 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionAppModel
 		]	
 	}
 	
-		override protected addActions(Panel actionsPanel) {
+	override protected addActions(Panel actionsPanel) {
 	
 	}
+	
+	def appModelReconfigAgregarAccion(AgregarAccionUsarElementoAppModel oldAppModel){
+		var newAppModel = new AgregarAccionAppModel()
+		newAppModel.laberintoSeleccionado = oldAppModel.laberintoSeleccionado
+		newAppModel.habitacionSeleccionada = oldAppModel.habitacionSeleccionada
+		newAppModel
+	}
+	
 }
