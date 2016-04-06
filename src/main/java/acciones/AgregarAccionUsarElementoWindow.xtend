@@ -28,8 +28,9 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionAppModel
 			text = "Seleccione el elemento que puede ser usado"
 		]
 		
+		//El selector debería ser de Item o String, dependiendo de como idententifiquemos a los items, no de Habitacion.
 		new Selector<Habitacion>(mainPanel) => [
-			//Habitaciones donde ir
+			//Elemento que puede ser usado, hay que preguntar como hacer el bindItems.
 			allowNull(false)
 		]
 	
@@ -47,6 +48,12 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionAppModel
 		new Label(mainPanel) => [
 			
 			// caption = nombre de la accion seleccionada
+			
+			// By juanma: En realidad no es de la accion seleccionada, cuando yo toque "Agregar" en la accion que voy a enganchar con el item
+			// La ventana de armado de esa accion deberia cerrarse y de alguna manera mandarle a su owner cierto mensaje, como ese owner vendría
+			// a ser la ventana de seleccion de armado de accion, esa ventana a su vez tendría que mandarle a su owner (Esta clase) la data para
+			// saber cual vendría a ser la accion que se agrego. Supongo.
+			// Asi mismo, asi deberían funcionar el resto de los botones aceptar, mandandoles a su owner cierta data. Supongo. De nuevo.
 		]
 	
 		val botoneraPanel = new Panel(mainPanel) => [
@@ -60,7 +67,7 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionAppModel
 		
 		new Button(botoneraPanel) => [
 			caption = "Agregar"
-			
+			// Lease el comment en el Label de arriba.
 		]	
 	}
 	

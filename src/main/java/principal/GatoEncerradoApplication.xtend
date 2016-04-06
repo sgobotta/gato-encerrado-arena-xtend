@@ -12,6 +12,7 @@ class GatoEncerradoApplication extends Application {
 			// Saque el dummyData porque no me compilaba y no podía encontrar de donde bajar la dependencia...
 			usuario = new Usuario("Pepe")
 			laberintos = usuario.laberintos
+			
 		]
 		return new AcaHayGatoEncerradoWindow(this, model)
 	}

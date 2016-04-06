@@ -42,7 +42,7 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 	}
 
 	override protected addActions(Panel actionsPanel) {
-		// Panel de acciones esta vacio, todo entra en el formPanel	
+		// El panel de acciones esta vacio, todo entra en el formPanel	
 	}
 
 	def armarCabecera(Panel mainPanel) {
