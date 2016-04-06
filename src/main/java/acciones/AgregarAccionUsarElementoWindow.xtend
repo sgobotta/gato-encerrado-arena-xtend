@@ -9,12 +9,13 @@ import org.uqbar.Habitacion
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.appmodel.AgregarAccionAppModel
 
 // El Observable aparenta ser Habitacion, sin embargo se van a necesitar
 // todas las habitaciones disponibles en un Laberinto
-class AgregarAccionUsarElementoWindow extends SimpleWindow<Habitacion> {
+class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionAppModel > {
 	
-	new(WindowOwner parent, Habitacion model) {
+	new(WindowOwner parent, AgregarAccionAppModel  model) {
 		super(parent, model)
 		this.setTitle("Agregar acción de Usar un elemento")
 	}
@@ -40,7 +41,7 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<Habitacion> {
 		new Button(mainPanel) => [
 			
 			caption = "Agregar acción"
-			onClick = [ | new AgregarAccionWindow(this, new Habitacion()).open() ]
+			onClick = [ | new AgregarAccionWindow(this, modelObject).open() ]
 		]
 		
 		new Label(mainPanel) => [

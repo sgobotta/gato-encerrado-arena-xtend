@@ -1,6 +1,5 @@
 package acciones
 
-import org.uqbar.Habitacion
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
@@ -9,11 +8,12 @@ import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.appmodel.AgregarAccionAppModel
 
 // El Observable aparenta ser Habitacion, donde se guardará un "item"
-class AgregarAccionAgarrarElementoWindow extends SimpleWindow<Habitacion> {
+class AgregarAccionAgarrarElementoWindow extends SimpleWindow<AgregarAccionAppModel > {
 	
-	new(WindowOwner parent, Habitacion model) {
+	new(WindowOwner parent, AgregarAccionAppModel  model) {
 		super(parent, model)
 		this.setTitle("Agregar acción de Agarrar un elemento")
 	}
@@ -47,26 +47,6 @@ class AgregarAccionAgarrarElementoWindow extends SimpleWindow<Habitacion> {
 	}
 	
 		override protected addActions(Panel actionsPanel) {
-		
-		/**
-		
-		var descripcion = new Label(actionsPanel)
-		descripcion.text = ""
-		
-		var selector = new Selector<Habitacion>(actionsPanel) => [
-			allowNull(false)
-			]
-		
-		var botonAceptar = new Button(actionsPanel) => [
-			caption = "Aceptar"
-		]
-				
-		var botonCancelar = new Button(actionsPanel) => [
-			caption = "Cancelar"
-		]
-	}
-	
-	*/
 	
 	}
 }

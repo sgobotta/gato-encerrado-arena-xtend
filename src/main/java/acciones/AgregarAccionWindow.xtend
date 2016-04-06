@@ -4,15 +4,15 @@ import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Label
-import org.uqbar.Habitacion
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.appmodel.AgregarAccionAppModel
 
 // El Observable aparenta ser Habitacion, donde se guardará un "item"
-class AgregarAccionWindow extends SimpleWindow<Habitacion> {
+class AgregarAccionWindow extends SimpleWindow<AgregarAccionAppModel> {
 	
-	new(WindowOwner parent, Habitacion model) {
+	new(WindowOwner parent, AgregarAccionAppModel model) {
 		super(parent, model)
 		this.setTitle("Agregar acción")
 		this.taskDescription = ""

@@ -9,13 +9,17 @@ import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.List
+import org.uqbar.appmodel.AgregarAccionAppModel
+
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.arena.bindings.PropertyAdapter
 
 // El Observable aparenta ser Habitacion, sin embargo se van a necesitar
 // todas las habitaciones disponibles en un Laberinto y todos los elementos
 // existentes en las habitaciones de un Laberinto
-class AgregarAccionIrAHabitacionWindow extends SimpleWindow<Habitacion> {
+class AgregarAccionIrAHabitacionWindow extends SimpleWindow<AgregarAccionAppModel > {
 	
-	new(WindowOwner parent, Habitacion model) {
+	new(WindowOwner parent, AgregarAccionAppModel model) {
 		super(parent, model)
 		this.setTitle("Agregar acción de Ir a otra habitación")
 	}
@@ -29,7 +33,11 @@ class AgregarAccionIrAHabitacionWindow extends SimpleWindow<Habitacion> {
 		]
 		
 		new List<Habitacion>(mainPanel) => [
-			
+			(items <=> "laberintoSeleccionado.habitaciones").adapter = new PropertyAdapter(Habitacion, "nombreHabitacion")
+			height = 150
+			width = 130
+			value <=> "habitacionSeleccionada"
+			height = 300
 			allowNull(false)
 		]
 	

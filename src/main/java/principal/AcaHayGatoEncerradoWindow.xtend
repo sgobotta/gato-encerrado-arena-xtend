@@ -19,6 +19,7 @@ import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.Laberinto
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.appmodel.AgregarAccionAppModel
 
 class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 
@@ -219,7 +220,11 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 	}
 	
 	def agregarAccion() {
-		new AgregarAccionWindow(this, new Habitacion()).open()
+		var agregarAccionmodel = new AgregarAccionAppModel => [
+			laberintoSeleccionado = modelObject.laberintoSeleccionado
+			habitacionSeleccionada = modelObject.habitacionSeleccionada
+		]
+		new AgregarAccionWindow(this, agregarAccionmodel).open()
 	}
 	
 	override protected addActions(Panel actionsPanel) {
