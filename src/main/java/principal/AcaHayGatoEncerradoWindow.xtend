@@ -138,7 +138,10 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 	}
 
 	def armarListaSegundaColumna(Panel segundaColumna) {
-
+		//Si yo elijo un laberinto y despues una habitacion, y luego cambio el laberinto, el error panel va a decir
+		// Cannot convert from null to primitive
+		// Creo que es porque al volver a seleccionarse un nuevo laberinto, la habitacion que antes estaba seleccionada
+		// no forma mas parte de las habitaciones de ese laberinto, pero no estoy seguro.
 		new List(segundaColumna) => [
 			(items <=> "laberintoSeleccionado.habitaciones").adapter = new PropertyAdapter(Habitacion,
 				"nombreHabitacion")

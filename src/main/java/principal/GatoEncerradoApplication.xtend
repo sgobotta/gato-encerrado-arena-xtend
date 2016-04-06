@@ -2,17 +2,14 @@ package principal
 
 import org.uqbar.arena.Application
 import org.uqbar.appmodel.GatoEncerradoAppModel
-import org.uqbar.Usuario
+import org.uqbar.dummyData.GatoEncerradoDummyData
 
 class GatoEncerradoApplication extends Application {
 	
 	override protected createMainWindow() {
 		
 		val model = new GatoEncerradoAppModel => [
-			// Saque el dummyData porque no me compilaba y no podía encontrar de donde bajar la dependencia...
-			usuario = new Usuario("Pepe")
-			laberintos = usuario.laberintos
-			
+			usuario = new GatoEncerradoDummyData().crearUsuarioDummy("Pepe")
 		]
 		return new AcaHayGatoEncerradoWindow(this, model)
 	}
