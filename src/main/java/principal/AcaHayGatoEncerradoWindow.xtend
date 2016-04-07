@@ -133,8 +133,12 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 
 		new Label(habitacionesTituloPanel).text = "Habitaciones de: "
 
-		// En donde dice "Nombre del Laberinto" tiene que ir un binding con el laberinto seleccionado.		
-		new Label(habitacionesTituloPanel).text = "Nombre del Laberinto"
+		// Si encontramos una manera de refreshear el label cuando laberintoSeleccionado cambia, esto anda de 10.		
+		new Label(habitacionesTituloPanel) => [
+			if(modelObject.laberintoSeleccionado != null){
+			text = modelObject.laberintoSeleccionado.nombreLaberinto
+			}
+		]
 	}
 
 	def armarListaSegundaColumna(Panel segundaColumna) {
@@ -187,8 +191,12 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 
 		new Label(habitacionTituloPanel).text = "Habitación seleccionada: "
 
-		// En donde dice "Nombre de Habitacion" tiene que ir un binding con la habitacion seleccionada.
-		new Label(habitacionTituloPanel).text = "Nombre de Habitación"
+		// Si encontramos una manera de refreshear el label cuando habitacionSeleccionada cambia, esto anda de 10.
+		new Label(habitacionTituloPanel) => [
+			if(modelObject.habitacionSeleccionada != null){
+			text = modelObject.habitacionSeleccionada.nombreHabitacion
+			}
+		]
 	}
 
 	def armarCheckBoxesTerceraColumna(Panel terceraColumna) {
@@ -198,13 +206,14 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		]
 
 		new CheckBox(habitacionCheckBoxPanel) => [
-			bindValueToProperty("habitacionSeleccionada.esInicial")
+			value <=> "habitacionSeleccionada.first"
 		]
 
 		new Label(habitacionCheckBoxPanel).text = "¿Es inicial?"
 
 		new CheckBox(habitacionCheckBoxPanel) => [
-			bindValueToProperty("habitacionSeleccionada.esFinal")
+			
+			value <=> "habitacionSeleccionada.last"
 		]
 
 		new Label(habitacionCheckBoxPanel).text = "¿Es final?"
