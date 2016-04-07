@@ -10,6 +10,9 @@ import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
 
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.Habitacion
+
 class AgregarHabitacionWindow extends SimpleWindow<AgregarHabitacionAppModel> {
 	new(WindowOwner parent, AgregarHabitacionAppModel model) {
 		super(parent, model)
@@ -26,7 +29,7 @@ class AgregarHabitacionWindow extends SimpleWindow<AgregarHabitacionAppModel> {
 		]
 		
 		new TextBox(mainPanel) => [
-			// binding acá
+			value <=> "nombreHabitacion"
 			width = 100
 		]
 	
@@ -36,13 +39,21 @@ class AgregarHabitacionWindow extends SimpleWindow<AgregarHabitacionAppModel> {
 		
 		new Button(botoneraPanel) => [
 			caption = "Cancelar"
-			this.close
+			onClick = [|this.close]
 		]
 		
 		new Button(botoneraPanel) => [
 			caption = "Agregar"
-			
+			onClick = [|agregarHabitacion]
 		] 
+	}
+	
+	def agregarHabitacion() {
+		var nuevaHabitacion = new Habitacion() => [
+			nombreHabitacion = modelObject.nombreHabitacion
+		]
+		modelObject.laberintoSeleccionado.agregarHabitacion(nuevaHabitacion)
+		this.close
 	}
 	
 		override protected addActions(Panel actionsPanel) {
