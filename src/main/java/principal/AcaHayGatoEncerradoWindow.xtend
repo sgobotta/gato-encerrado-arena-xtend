@@ -37,24 +37,6 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		this.armarColumnas(mainPanel)
 	}
 
-	def agregarAccion() {
-		var agregarAccionModel = new AgregarAccionAppModel => [
-			laberintoSeleccionado = modelObject.laberintoSeleccionado
-			habitacionSeleccionada = modelObject.habitacionSeleccionada
-		]
-		new AgregarAccionWindow(this, agregarAccionModel).open()
-	}
-	
-	def agregarLaberinto() {
-		var agregarLaberintoModel = new AgregarLaberintoAppModel
-		new AgregarLaberintoWindow(this, agregarLaberintoModel).open()
-	}
-	
-	def agregarHabitacion() {
-		var agregarHabitacionModel = new AgregarHabitacionAppModel
-		new AgregarHabitacionWindow(this, agregarHabitacionModel).open()
-	}
-
 	override protected addActions(Panel actionsPanel) {
 		// El panel de acciones esta vacio, todo entra en el formPanel	
 	}
@@ -72,11 +54,16 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		]
 	}
 
+
+	// *************************************************
+	// ** Métodos asociados al Layout
+	// *************************************************
+	
+	/**
+	 * Panel contenedor principal de tres paneles
+	 */	 
 	def armarColumnas(Panel mainPanel) {
 
-		// *************************************************
-		// ** Panel contenedor principal de tres paneles
-		// *************************************************
 		var contenedorPanel = new Panel(mainPanel) => [
 			layout = new ColumnLayout(3)
 		]
@@ -86,22 +73,29 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		armarTerceraColumna(contenedorPanel)
 	}
 
+
+	/**
+	 * Primera columna: Laberintos
+	 */
 	def armarPrimeraColumna(Panel contenedorPanel) {
 
-		// *************************************************
-		// ** Primera columna: Laberintos
-		// *************************************************
 		var primeraColumna = new Panel(contenedorPanel)
 		armarTituloPrimeraColumna(primeraColumna)
 		armarListaPrimeraColumna(primeraColumna)
 		armarBotonesPrimeraColumna(primeraColumna)
 
 	}
-
+	
+	/**
+	 * Titulo primera columna: laberintos
+	 */
 	def armarTituloPrimeraColumna(Panel primeraColumna) {
 		new Label(primeraColumna).text = "Laberintos"
 	}
 
+	/**
+	 * Lista de laberintos
+	 */
 	def armarListaPrimeraColumna(Panel primeraColumna) {
 
 		new List(primeraColumna) => [
@@ -113,6 +107,9 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 
 	}
 
+	/**
+	 * Botonera para laberintos
+	 */
 	def armarBotonesPrimeraColumna(Panel primeraColumna) {
 
 		var botoneraLaberintoPanel = new Panel(primeraColumna) => [
@@ -129,26 +126,37 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		]
 	}
 
+	/**
+	 * Segunda columna: Habitaciones
+	 */
 	def armarSegundaColumna(Panel contenedorPanel) {
 
-		// *************************************************
-		// ** Segunda columna: Habitaciones
-		// *************************************************
 		var segundaColumna = new Panel(contenedorPanel)
 		armarTituloSegundaColumna(segundaColumna)
 		armarListaSegundaColumna(segundaColumna)
 		armarBotonesSegundaColumna(segundaColumna)
 	}
 
+	/**
+	 * Titulo segunda columna: habitaciones
+	 */
 	def armarTituloSegundaColumna(Panel segundaColumna) {
 
 		var habitacionesTituloPanel = new Panel(segundaColumna) => [
 			layout = new ColumnLayout(2)
 		]
 
-		new Label(habitacionesTituloPanel).text = "Habitaciones de: "
+		new Label(habitacionesTituloPanel).text = "Habitaciones de: " 	// Si el label de abajo no se utililzará
+																		// para algún binding, entonces simplemente
+																		// se puede concatenar el nombre del laberinto
+																		// luego de "Habitaciones de:"
 
-		// Si encontramos una manera de refreshear el label cuando laberintoSeleccionado cambia, esto anda de 10.		
+		// Si encontramos una manera de refreshear el label cuando laberintoSeleccionado cambia, esto anda de 10.
+		//
+		// Intenté varias cosas... Creo que habría que modificar algo en el método del dominio que 
+		// está asociado al binding, pero NO SE D:
+		// Santi B.
+				
 		new Label(habitacionesTituloPanel) => [
 			if(modelObject.laberintoSeleccionado != null){
 			text = modelObject.laberintoSeleccionado.nombreLaberinto
@@ -156,11 +164,20 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		]
 	}
 
+	/**
+	 * Lista para habitaciones
+	 */
 	def armarListaSegundaColumna(Panel segundaColumna) {
 		//Si yo elijo un laberinto y despues una habitacion, y luego cambio el laberinto, el error panel va a decir
 		// Cannot convert from null to primitive
 		// Creo que es porque al volver a seleccionarse un nuevo laberinto, la habitacion que antes estaba seleccionada
 		// no forma mas parte de las habitaciones de ese laberinto, pero no estoy seguro.
+		
+		// Entiendo, pero no logro encontrarle la vuelta, estoy seguro que se puede. Tiene que ser parecido
+		// a ese binding que nos mostraron con la conversion al instante de millas a kilómetros, modificando
+		// los convertir en el dominio, o algo parecido... habría que probar si una label se actualiza sola
+		// haciendo algo por el estilo, luego verlo en una list.
+		// Santi B. 
 		new List(segundaColumna) => [
 			(items <=> "laberintoSeleccionado.habitaciones").adapter = new PropertyAdapter(Habitacion,
 				"nombreHabitacion")
@@ -170,6 +187,9 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		]
 	}
 
+	/**
+	 * Botonera segunda columna
+	 */
 	def armarBotonesSegundaColumna(Panel segundaColumna) {
 
 		var botoneraHabitacionesPanel = new Panel(segundaColumna) => [
@@ -186,11 +206,11 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		]
 	}
 
+	/**
+	 * Segunda columna: habitación seleccionada y acciones
+	 */
 	def armarTerceraColumna(Panel contenedorPanel) {
 
-		// *************************************************
-		// ** Tercera columna: Hab. seleccionada y acciones
-		// *************************************************
 		var terceraColumna = new Panel(contenedorPanel)
 		armarPrimerTituloTerceraColumna(terceraColumna)
 		armarCheckBoxesTerceraColumna(terceraColumna)
@@ -198,7 +218,10 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		armarListaTerceraColumna(terceraColumna)
 		armarBotonesTerceraColumna(terceraColumna)
 	}
-
+	
+	/**
+	 * Primer título tercer columna: habitación seleccionada 
+	 */
 	def armarPrimerTituloTerceraColumna(Panel terceraColumna) {
 
 		var habitacionTituloPanel = new Panel(terceraColumna) => [
@@ -215,6 +238,9 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		]
 	}
 
+	/**
+	 * Checkboxes para una habitación
+	 */
 	def armarCheckBoxesTerceraColumna(Panel terceraColumna) {
 
 		var habitacionCheckBoxPanel = new Panel(terceraColumna) => [
@@ -236,10 +262,16 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 
 	}
 
+	/**
+	 * Segundo título tercer columna: acciones
+	 */
 	def armarSegundoTituloTerceraColumna(Panel terceraColumna) {
 		new Label(terceraColumna).text = "Acciones"
 	}
-
+	
+	/**
+	 * Lista de acciones
+	 */
 	def armarListaTerceraColumna(Panel terceraColumna) {
 
 		new List(terceraColumna) => [
@@ -250,6 +282,9 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 
 	}
 
+	/**
+	 * Botonera para una habitación
+	 */
 	def armarBotonesTerceraColumna(Panel terceraColumna) {
 
 		var botoneraHabitacionSeleccionadaPanel = new Panel(terceraColumna) => [
@@ -265,5 +300,26 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 			caption = "Quitar Acción"
 		]
 	}
-
+	
+	// *************************************************
+	// ** Métodos asociados al Binding
+	// *************************************************
+	
+	def agregarAccion() {
+		var agregarAccionModel = new AgregarAccionAppModel => [
+			laberintoSeleccionado = modelObject.laberintoSeleccionado
+			habitacionSeleccionada = modelObject.habitacionSeleccionada
+		]
+		new AgregarAccionWindow(this, agregarAccionModel).open()
+	}
+	
+	def agregarLaberinto() {
+		var agregarLaberintoModel = new AgregarLaberintoAppModel
+		new AgregarLaberintoWindow(this, agregarLaberintoModel).open()
+	}
+	
+	def agregarHabitacion() {
+		var agregarHabitacionModel = new AgregarHabitacionAppModel
+		new AgregarHabitacionWindow(this, agregarHabitacionModel).open()
+	}
 }
