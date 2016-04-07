@@ -1,20 +1,19 @@
-package acciones
+package habitacion
 
-import org.uqbar.arena.layout.HorizontalLayout
-import org.uqbar.arena.layout.VerticalLayout
-import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.widgets.TextBox
-import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.appmodel.AgregarAccionAppModel
+import org.uqbar.appmodel.AgregarHabitacionAppModel
+import org.uqbar.arena.windows.SimpleWindow
+import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.layout.VerticalLayout
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.widgets.TextBox
+import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.widgets.Button
 
-class AgregarAccionAgarrarElementoWindow extends SimpleWindow<AgregarAccionAppModel > {
-	
-	new(WindowOwner parent, AgregarAccionAppModel  model) {
+class AgregarHabitacionWindow extends SimpleWindow<AgregarHabitacionAppModel> {
+	new(WindowOwner parent, AgregarHabitacionAppModel model) {
 		super(parent, model)
-		this.setTitle("Agregar acción de Agarrar un elemento")
+		this.setTitle("Crear una Habitación")
 		this.taskDescription = ""
 	}
 	
@@ -23,7 +22,7 @@ class AgregarAccionAgarrarElementoWindow extends SimpleWindow<AgregarAccionAppMo
 		mainPanel.layout = new VerticalLayout()
 	
 		new Label(mainPanel) => [	
-			text = "Escriba el elemento	que aparecerá en la habitación"
+			text = "Escriba el nombre de la habitación"
 		]
 		
 		new TextBox(mainPanel) => [

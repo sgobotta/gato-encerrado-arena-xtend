@@ -22,6 +22,7 @@ class AgregarAccionIrAHabitacionWindow extends SimpleWindow<AgregarAccionAppMode
 	new(WindowOwner parent, AgregarAccionAppModel model) {
 		super(parent, model)
 		this.setTitle("Agregar acción de Ir a otra habitación")
+		this.taskDescription = ""
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {

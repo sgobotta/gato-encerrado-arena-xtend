@@ -1,4 +1,4 @@
-package acciones
+package laberinto
 
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.layout.VerticalLayout
@@ -8,13 +8,13 @@ import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.appmodel.AgregarAccionAppModel
+import org.uqbar.appmodel.AgregarLaberintoAppModel
 
-class AgregarAccionAgarrarElementoWindow extends SimpleWindow<AgregarAccionAppModel > {
+class AgregarLaberintoWindow extends SimpleWindow<AgregarLaberintoAppModel> {
 	
-	new(WindowOwner parent, AgregarAccionAppModel  model) {
+	new(WindowOwner parent, AgregarLaberintoAppModel model) {
 		super(parent, model)
-		this.setTitle("Agregar acción de Agarrar un elemento")
+		this.setTitle("Crear un Laberinto")
 		this.taskDescription = ""
 	}
 	
@@ -23,7 +23,7 @@ class AgregarAccionAgarrarElementoWindow extends SimpleWindow<AgregarAccionAppMo
 		mainPanel.layout = new VerticalLayout()
 	
 		new Label(mainPanel) => [	
-			text = "Escriba el elemento	que aparecerá en la habitación"
+			text = "Escriba el nombre del laberinto"
 		]
 		
 		new TextBox(mainPanel) => [

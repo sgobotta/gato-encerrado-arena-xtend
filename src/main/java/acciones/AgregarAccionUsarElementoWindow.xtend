@@ -19,6 +19,7 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElem
 	new(WindowOwner parent, AgregarAccionUsarElementoAppModel  model) {
 		super(parent, model)
 		this.setTitle("Agregar acción de Usar un elemento")
+		this.taskDescription = ""
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {

@@ -19,6 +19,10 @@ import org.uqbar.Laberinto
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.appmodel.AgregarAccionAppModel
 import org.uqbar.Accion
+import laberinto.AgregarLaberintoWindow
+import org.uqbar.appmodel.AgregarLaberintoAppModel
+import org.uqbar.appmodel.AgregarHabitacionAppModel
+import habitacion.AgregarHabitacionWindow
 
 class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 
@@ -34,11 +38,21 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 	}
 
 	def agregarAccion() {
-		var agregarAccionmodel = new AgregarAccionAppModel => [
+		var agregarAccionModel = new AgregarAccionAppModel => [
 			laberintoSeleccionado = modelObject.laberintoSeleccionado
 			habitacionSeleccionada = modelObject.habitacionSeleccionada
 		]
-		new AgregarAccionWindow(this, agregarAccionmodel).open()
+		new AgregarAccionWindow(this, agregarAccionModel).open()
+	}
+	
+	def agregarLaberinto() {
+		var agregarLaberintoModel = new AgregarLaberintoAppModel
+		new AgregarLaberintoWindow(this, agregarLaberintoModel).open()
+	}
+	
+	def agregarHabitacion() {
+		var agregarHabitacionModel = new AgregarHabitacionAppModel
+		new AgregarHabitacionWindow(this, agregarHabitacionModel).open()
 	}
 
 	override protected addActions(Panel actionsPanel) {
@@ -107,6 +121,7 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 
 		new Button(botoneraLaberintoPanel) => [
 			caption = "Agregar Laberinto"
+			onClick = [|agregarLaberinto()]
 		]
 
 		new Button(botoneraLaberintoPanel) => [
@@ -163,6 +178,7 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 
 		new Button(botoneraHabitacionesPanel) => [
 			caption = "Agregar Habitación"
+			onClick = [|agregarHabitacion]
 		]
 
 		new Button(botoneraHabitacionesPanel) => [
