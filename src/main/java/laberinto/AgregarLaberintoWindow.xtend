@@ -10,6 +10,9 @@ import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.appmodel.AgregarLaberintoAppModel
 
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.Laberinto
+
 class AgregarLaberintoWindow extends SimpleWindow<AgregarLaberintoAppModel> {
 	
 	new(WindowOwner parent, AgregarLaberintoAppModel model) {
@@ -27,7 +30,7 @@ class AgregarLaberintoWindow extends SimpleWindow<AgregarLaberintoAppModel> {
 		]
 		
 		new TextBox(mainPanel) => [
-			// binding acá
+			value <=> "nombreLaberinto"
 			width = 100
 		]
 	
@@ -42,11 +45,19 @@ class AgregarLaberintoWindow extends SimpleWindow<AgregarLaberintoAppModel> {
 		
 		new Button(botoneraPanel) => [
 			caption = "Agregar"
-			
+			onClick = [|agregarLaberinto]
 		] 
 	}
 	
 		override protected addActions(Panel actionsPanel) {
 	
+	}
+	
+	def agregarLaberinto() {
+		var nuevoLaberinto = new Laberinto() => [
+			nombreLaberinto = modelObject.nombreLaberinto
+		]
+		modelObject.laberintos.add(nuevoLaberinto)
+		this.close()
 	}
 }

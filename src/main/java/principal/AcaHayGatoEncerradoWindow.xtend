@@ -305,6 +305,17 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 	// ** Métodos asociados al Binding
 	// *************************************************
 	
+	def agregarLaberinto() {
+		var agregarLaberintoModel = new AgregarLaberintoAppModel
+		agregarLaberintoModel.laberintos = modelObject.usuario.laberintos
+		new AgregarLaberintoWindow(this, agregarLaberintoModel).open()
+	}
+	
+	def agregarHabitacion() {
+		var agregarHabitacionModel = new AgregarHabitacionAppModel
+		new AgregarHabitacionWindow(this, agregarHabitacionModel).open()
+	}
+	
 	def agregarAccion() {
 		var agregarAccionModel = new AgregarAccionAppModel => [
 			laberintoSeleccionado = modelObject.laberintoSeleccionado
@@ -313,13 +324,4 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		new AgregarAccionWindow(this, agregarAccionModel).open()
 	}
 	
-	def agregarLaberinto() {
-		var agregarLaberintoModel = new AgregarLaberintoAppModel
-		new AgregarLaberintoWindow(this, agregarLaberintoModel).open()
-	}
-	
-	def agregarHabitacion() {
-		var agregarHabitacionModel = new AgregarHabitacionAppModel
-		new AgregarHabitacionWindow(this, agregarHabitacionModel).open()
-	}
 }
