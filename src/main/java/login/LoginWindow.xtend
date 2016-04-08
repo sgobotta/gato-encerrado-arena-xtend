@@ -11,16 +11,17 @@ import org.uqbar.arena.windows.Dialog
 import org.uqbar.exceptions.MyLoginException
 import org.uqbar.arena.widgets.PasswordField
 import org.uqbar.arena.windows.ErrorsPanel
-import org.uqbar.appmodel.LoginAplicationModel
+import org.uqbar.appmodel.CrearUsuarioAppModel
+import org.uqbar.appmodel.LoginAppModel
 
-class LoginWindow extends MainWindow<LoginAplicationModel>{
+class LoginWindow extends MainWindow<LoginAppModel>{
 	
-	new(LoginAplicationModel model) {
+	new(LoginAppModel model) {
 		super(model)
 	}
 	
 	new() {
-		super(new LoginAplicationModel)
+		super(new LoginAppModel)
 	}
 	
 	override createContents(Panel mainPanel) {
@@ -28,13 +29,13 @@ class LoginWindow extends MainWindow<LoginAplicationModel>{
 		this.title = "Log in"
 		
 		var panelDeLogeo = new Panel(mainPanel) => [
+			
 			width = 200
 		]
 		
-		new ErrorsPanel(panelDeLogeo, "Log In") => [
+		new ErrorsPanel(panelDeLogeo, "Ingrese nombre de usuario y contraseña") => [
 			
-		]
-				
+		]		
 		this.crearPanelDelFormulario(panelDeLogeo, Color.BLACK, Color.CYAN)
 		this.crearPanelDeAcciones(panelDeLogeo, Color.BLACK, Color.CYAN)
 		
@@ -64,17 +65,18 @@ class LoginWindow extends MainWindow<LoginAplicationModel>{
 	
 	def logearUsuario() {
 		try{
-		modelObject.logearUsuario()
+			modelObject.logearUsuario()
 		//pasar a otra ventana con usuarioSeleccionado
-		this.close
+			this.close
 		}
 		catch(MyLoginException expected){
 		//avisar que no se pudo logear el wachin
+			expected.message
 		}
 	}
 	
 	def void crearUsuario() {
-		this.openDialog(new CrearUsuarioWindow(this))
+		this.openDialog(new CrearUsuarioWindow(this, new CrearUsuarioAppModel(modelObject.servicioDeLogeo)))
 	}
 	
 	def openDialog(Dialog<?> dialog) {
