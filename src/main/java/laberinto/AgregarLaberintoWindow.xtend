@@ -1,6 +1,5 @@
-package acciones
+package laberinto
 
-import org.uqbar.Habitacion
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
@@ -9,13 +8,17 @@ import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.appmodel.AgregarLaberintoAppModel
 
-// El Observable aparenta ser Habitacion, donde se guardará un "item"
-class AccionAgarrarElementoWindow extends SimpleWindow<Habitacion> {
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.Laberinto
+
+class AgregarLaberintoWindow extends SimpleWindow<AgregarLaberintoAppModel> {
 	
-	new(WindowOwner parent, Habitacion model) {
+	new(WindowOwner parent, AgregarLaberintoAppModel model) {
 		super(parent, model)
-		this.setTitle("Agregar acción de Agarrar un elemento")
+		this.setTitle("Crear un Laberinto")
+		this.taskDescription = ""
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
@@ -23,11 +26,11 @@ class AccionAgarrarElementoWindow extends SimpleWindow<Habitacion> {
 		mainPanel.layout = new VerticalLayout()
 	
 		new Label(mainPanel) => [	
-			text = "Escriba el elemento	que aparecerá en la habitación"
+			text = "Escriba el nombre del laberinto"
 		]
 		
 		new TextBox(mainPanel) => [
-			// binding acá
+			value <=> "nombreLaberinto"
 			width = 100
 		]
 	
@@ -42,31 +45,19 @@ class AccionAgarrarElementoWindow extends SimpleWindow<Habitacion> {
 		
 		new Button(botoneraPanel) => [
 			caption = "Agregar"
-			
+			onClick = [|agregarLaberinto]
 		] 
 	}
 	
 		override protected addActions(Panel actionsPanel) {
-		
-		/**
-		
-		var descripcion = new Label(actionsPanel)
-		descripcion.text = ""
-		
-		var selector = new Selector<Habitacion>(actionsPanel) => [
-			allowNull(false)
-			]
-		
-		var botonAceptar = new Button(actionsPanel) => [
-			caption = "Aceptar"
-		]
-				
-		var botonCancelar = new Button(actionsPanel) => [
-			caption = "Cancelar"
-		]
+	
 	}
 	
-	*/
-	
+	def agregarLaberinto() {
+		var nuevoLaberinto = new Laberinto() => [
+			nombreLaberinto = modelObject.nombreLaberinto
+		]
+		modelObject.laberintos.add(nuevoLaberinto)
+		this.close()
 	}
 }
