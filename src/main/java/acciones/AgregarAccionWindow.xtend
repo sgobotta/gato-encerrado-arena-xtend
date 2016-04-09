@@ -9,6 +9,8 @@ import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.appmodel.AgregarAccionAppModel
 import org.uqbar.appmodel.AgregarAccionUsarElementoAppModel
+import org.uqbar.appmodel.AgregarAccionAgarrarElementoAppModel
+import java.util.ArrayList
 
 // El Observable aparenta ser Habitacion, donde se guardará un "item"
 class AgregarAccionWindow extends SimpleWindow<AgregarAccionAppModel> {
@@ -48,21 +50,51 @@ class AgregarAccionWindow extends SimpleWindow<AgregarAccionAppModel> {
 	}
 	
 	def crearAccionDeUsarElemento() {
+	    
+	    /**
+	    var newAppModel = new AgregarAccionUsarElementoAppModel() => [
+	        
+	        laberintoSeleccionado = modelObject.laberintoSeleccionado
+	        habitacionSeleccionada = modelObject.habitacionSeleccionada
+	
+	        todosLosItems = laberintoSeleccionado.todosLosItems
+	        
+	        // Se rompe cuando queremos buscar la lista de todos los items del laberinto.
+	        // Se rompe tambien si le pido solamene la lista de una sola habitacion.
+	        // Esto sucede porque buscabamos item en getTodosLosItems iterando sobre una lista
+	        // con Todas las acciones, algunas de las cuales no tenian el atributo item 
+	    ]
+        */
+        
+        this.close   
+        //new AgregarAccionUsarElementoWindow(this, newAppModel).open() Si usamos reconfig esto se puede borrar
 		new AgregarAccionUsarElementoWindow(this, appModelReconfigUsarElemento(modelObject)).open()
 	}
+	
 	
 	def appModelReconfigUsarElemento(AgregarAccionAppModel oldAppModel){
 		var newAppModel = new AgregarAccionUsarElementoAppModel()
 		newAppModel.laberintoSeleccionado = oldAppModel.laberintoSeleccionado
 		newAppModel.habitacionSeleccionada = oldAppModel.habitacionSeleccionada
+		// Agregado para que el appmodel lleve todos los items!
+		newAppModel.todosLosItems = oldAppModel.laberintoSeleccionado.todosLosItems
 		newAppModel
 	}
 	
+	
+	
 	def crearAccionDeAgarrarElemento() {
-		new AgregarAccionAgarrarElementoWindow(this, modelObject).open()
+	    
+	    var newAppModel = new AgregarAccionAgarrarElementoAppModel()
+	    newAppModel.laberintoSeleccionado = modelObject.laberintoSeleccionado
+	    newAppModel.habitacionSeleccionada = modelObject.habitacionSeleccionada
+	    
+	    this.close
+		new AgregarAccionAgarrarElementoWindow(this, newAppModel).open()
 	}
 	
 	def crearAccionDeIrAOtraHabitacion() {
+	    this.close
 		new AgregarAccionIrAHabitacionWindow(this, modelObject).open()
 	}
 	

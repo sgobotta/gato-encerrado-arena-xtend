@@ -12,8 +12,6 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.appmodel.AgregarAccionUsarElementoAppModel
 import org.uqbar.appmodel.AgregarAccionAppModel
 
-// El Observable aparenta ser Habitacion, sin embargo se van a necesitar
-// todas las habitaciones disponibles en un Laberinto
 class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElementoAppModel > {
 	
 	new(WindowOwner parent, AgregarAccionUsarElementoAppModel  model) {
@@ -32,7 +30,7 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElem
 		
 		//El selector debería ser de Item o String, dependiendo de como idententifiquemos a los items, no de Habitacion.
 		new Selector<String>(mainPanel) => [
-			(items <=> "laberintoSeleccionado.todosLosItems")
+		    (items <=> "todosLosItems")
 			allowNull(false)
 			value <=> "itemSeleccionado"
 		]
@@ -45,9 +43,12 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElem
 		new Button(mainPanel) => [
 			
 			caption = "Agregar acción"
+			
 			onClick = [ | new AgregarAccionWindow(this, appModelReconfigAgregarAccion(modelObject)).open() ]
-		]
 		
+		    //onClick = [| agregarAccion] Si usamos el reconfig esto podría borrarse
+		
+		]
 		new Label(mainPanel) => [
 			
 			// caption = nombre de la accion seleccionada
@@ -57,6 +58,17 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElem
 			// a ser la ventana de seleccion de armado de accion, esa ventana a su vez tendría que mandarle a su owner (Esta clase) la data para
 			// saber cual vendría a ser la accion que se agrego. Supongo.
 			// Asi mismo, asi deberían funcionar el resto de los botones aceptar, mandandoles a su owner cierta data. Supongo. De nuevo.
+		
+		    // Ya se cierran solas las ventanas, al aceptar se manda todo a un appModel ahora.
+		    // El problema va a venir cuando querramos meterle una accion a ésta ventana. Luego de hacer
+		    // Agregar accion, la ventana que elijamos (por ejemplo ir a habitacion) tendría que setear
+		    // la accion de IrAHabitacion al appModel que le pasemos, independientemente si 
+		    // IrAHabitacion Window es triggereada de la pantalla principal o de AgregarAccionUsarElemento
+		    // Santi B.
+		    
+		    // Antes habría que solucionar el tema de la lista de items.
+		    // getTodosLosItems de laberinto busca sobre todas las acciones, inclusive aquellas
+		    // que no tienen items!
 		]
 	
 		val botoneraPanel = new Panel(mainPanel) => [
@@ -74,9 +86,22 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElem
 		]	
 	}
 	
+	
+	// Si usamos el reconfig de Juanma esto podría borrarse 
+	def agregarAccion() {
+	    
+	    var nuevoAppModel = new AgregarAccionAppModel => [
+	        
+	        laberintoSeleccionado = modelObject.laberintoSeleccionado
+	        habitacionSeleccionada = modelObject.habitacionSeleccionada
+	    ]
+        new AgregarAccionWindow(this, nuevoAppModel).open()
+	}
+	
 	override protected addActions(Panel actionsPanel) {
 	
 	}
+	
 	
 	def appModelReconfigAgregarAccion(AgregarAccionUsarElementoAppModel oldAppModel){
 		var newAppModel = new AgregarAccionAppModel()
@@ -85,4 +110,5 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElem
 		newAppModel
 	}
 	
+
 }
