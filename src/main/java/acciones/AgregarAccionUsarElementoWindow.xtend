@@ -28,9 +28,8 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElem
 			text = "Seleccione el elemento que puede ser usado"
 		]
 		
-		//El selector debería ser de Item o String, dependiendo de como idententifiquemos a los items, no de Habitacion.
 		new Selector<String>(mainPanel) => [
-		    (items <=> "todosLosItems")
+		    (items <=> "laberintoSeleccionado.todosLosItems")
 			allowNull(false)
 			value <=> "itemSeleccionado"
 		]
@@ -45,8 +44,6 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElem
 			caption = "Agregar acción"
 			
 			onClick = [ | new AgregarAccionWindow(this, appModelReconfigAgregarAccion(modelObject)).open() ]
-		
-		    //onClick = [| agregarAccion] Si usamos el reconfig esto podría borrarse
 		
 		]
 		new Label(mainPanel) => [
@@ -77,7 +74,7 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElem
 		
 		new Button(botoneraPanel) => [
 			caption = "Cancelar"
-
+			onClick = [| this.close()]
 		]
 		
 		new Button(botoneraPanel) => [
@@ -86,17 +83,6 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElem
 		]	
 	}
 	
-	
-	// Si usamos el reconfig de Juanma esto podría borrarse 
-	def agregarAccion() {
-	    
-	    var nuevoAppModel = new AgregarAccionAppModel => [
-	        
-	        laberintoSeleccionado = modelObject.laberintoSeleccionado
-	        habitacionSeleccionada = modelObject.habitacionSeleccionada
-	    ]
-        new AgregarAccionWindow(this, nuevoAppModel).open()
-	}
 	
 	override protected addActions(Panel actionsPanel) {
 	
