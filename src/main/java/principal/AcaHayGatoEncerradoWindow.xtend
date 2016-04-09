@@ -123,6 +123,7 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 
 		new Button(botoneraLaberintoPanel) => [
 			caption = "Quitar Laberinto"
+			onClick = [|quitarLaberinto()]
 		]
 	}
 
@@ -192,6 +193,7 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 
 		new Button(botoneraHabitacionesPanel) => [
 			caption = "Quitar Habitación"
+			onClick = [|quitarHabitacion()]
 		]
 	}
 
@@ -297,11 +299,19 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		new AgregarLaberintoWindow(this, agregarLaberintoModel).open()
 	}
 	
+	def quitarLaberinto() {
+	    modelObject.usuario.eliminarLaberinto(modelObject.laberintoSeleccionado)
+	}
+	
 	def agregarHabitacion() {
 		var agregarHabitacionModel = new AgregarHabitacionAppModel
 		agregarHabitacionModel.laberintoSeleccionado = modelObject.laberintoSeleccionado
 		new AgregarHabitacionWindow(this, agregarHabitacionModel).open()
 	}
+	
+	def quitarHabitacion() {
+        modelObject.usuario.eliminarHabitacion(modelObject.habitacionSeleccionada, modelObject.laberintoSeleccionado)
+    }
 	
 	def agregarAccion() {
 		var agregarAccionModel = new AgregarAccionAppModel => [
