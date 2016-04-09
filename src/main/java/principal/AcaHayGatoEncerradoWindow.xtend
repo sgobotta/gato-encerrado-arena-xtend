@@ -146,21 +146,10 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 			layout = new ColumnLayout(2)
 		]
 
-		new Label(habitacionesTituloPanel).text = "Habitaciones de: " 	// Si el label de abajo no se utililzará
-																		// para algún binding, entonces simplemente
-																		// se puede concatenar el nombre del laberinto
-																		// luego de "Habitaciones de:"
-
-		// Si encontramos una manera de refreshear el label cuando laberintoSeleccionado cambia, esto anda de 10.
-		//
-		// Intenté varias cosas... Creo que habría que modificar algo en el método del dominio que 
-		// está asociado al binding, pero NO SE D:
-		// Santi B.
+		new Label(habitacionesTituloPanel).text = "Habitaciones de: " 	
 				
 		new Label(habitacionesTituloPanel) => [
-			if(modelObject.laberintoSeleccionado != null){
-			text = modelObject.laberintoSeleccionado.nombreLaberinto
-			}
+		value <=> "nombreLaberintoSeleccionado"
 		]
 	}
 
@@ -230,11 +219,8 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 
 		new Label(habitacionTituloPanel).text = "Habitación seleccionada: "
 
-		// Si encontramos una manera de refreshear el label cuando habitacionSeleccionada cambia, esto anda de 10.
 		new Label(habitacionTituloPanel) => [
-			if(modelObject.habitacionSeleccionada != null){
-			text = modelObject.habitacionSeleccionada.nombreHabitacion
-			}
+		value <=> "nombreHabitacionSeleccionada"
 		]
 	}
 
