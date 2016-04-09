@@ -10,7 +10,6 @@ import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.appmodel.AgregarAccionAppModel
 import org.uqbar.appmodel.AgregarAccionUsarElementoAppModel
 import org.uqbar.appmodel.AgregarAccionAgarrarElementoAppModel
-import java.util.ArrayList
 
 // El Observable aparenta ser Habitacion, donde se guardará un "item"
 class AgregarAccionWindow extends SimpleWindow<AgregarAccionAppModel> {
@@ -76,8 +75,6 @@ class AgregarAccionWindow extends SimpleWindow<AgregarAccionAppModel> {
 		var newAppModel = new AgregarAccionUsarElementoAppModel()
 		newAppModel.laberintoSeleccionado = oldAppModel.laberintoSeleccionado
 		newAppModel.habitacionSeleccionada = oldAppModel.habitacionSeleccionada
-		// Agregado para que el appmodel lleve todos los items!
-		newAppModel.todosLosItems = oldAppModel.laberintoSeleccionado.todosLosItems
 		newAppModel
 	}
 	
