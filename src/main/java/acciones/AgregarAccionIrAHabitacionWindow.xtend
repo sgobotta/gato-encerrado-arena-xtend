@@ -48,12 +48,12 @@ class AgregarAccionIrAHabitacionWindow extends SimpleWindow<AgregarAccionAppMode
 		
 		new Button(botoneraPanel) => [
 			caption = "Cancelar"
-
+			onClick = [| this.close()]
 		]
 		
 		new Button(botoneraPanel) => [
 			caption = "Agregar"
-			
+			// onClick = [| hacerAgregadoDeAccion]
 		] 		
 	}
 	

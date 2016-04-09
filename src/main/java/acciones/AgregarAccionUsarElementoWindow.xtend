@@ -74,7 +74,7 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElem
 		
 		new Button(botoneraPanel) => [
 			caption = "Cancelar"
-
+			onClick = [| this.close()]
 		]
 		
 		new Button(botoneraPanel) => [
