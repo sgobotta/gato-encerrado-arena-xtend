@@ -149,7 +149,7 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		new Label(habitacionesTituloPanel).text = "Habitaciones de: " 	
 				
 		new Label(habitacionesTituloPanel) => [
-		value <=> "nombreLaberintoSeleccionado"
+		value <=> "laberintoSeleccionado.nombreLaberinto"
 		]
 	}
 
@@ -220,7 +220,7 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		new Label(habitacionTituloPanel).text = "Habitación seleccionada: "
 
 		new Label(habitacionTituloPanel) => [
-		value <=> "nombreHabitacionSeleccionada"
+		value <=> "habitacionSeleccionada.nombreHabitacion"
 		]
 	}
 
