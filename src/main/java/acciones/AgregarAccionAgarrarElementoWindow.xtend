@@ -30,11 +30,6 @@ class AgregarAccionAgarrarElementoWindow extends SimpleWindow<AgregarAccionAgarr
 		]
 		
 		new TextBox(mainPanel) => [
-            value <=> "nombreAccion"
-            width = 100
-        ]
-		
-		new TextBox(mainPanel) => [
 			value <=> "nombreItem"
 			width = 100
 		]
@@ -50,14 +45,13 @@ class AgregarAccionAgarrarElementoWindow extends SimpleWindow<AgregarAccionAgarr
 		
 		new Button(botoneraPanel) => [
 			caption = "Agregar"
-			onClick = [| agregarItem]
+			onClick = [| this.agregarItem]
 		] 
 	}
 	
 	def agregarItem() {
 	    
 	    var nuevaAccion = new AgarrarItem() => [
-	        nombre = modelObject.nombreAccion
 	        nombreItem = modelObject.nombreItem
 	    ]
 	    
