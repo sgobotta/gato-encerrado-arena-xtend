@@ -13,6 +13,7 @@ import org.uqbar.appmodel.AgregarAccionAppModel
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.bindings.PropertyAdapter
+import org.uqbar.IrAHabitacion
 
 // El Observable aparenta ser Habitacion, sin embargo se van a necesitar
 // todas las habitaciones disponibles en un Laberinto y todos los elementos
@@ -53,11 +54,22 @@ class AgregarAccionIrAHabitacionWindow extends SimpleWindow<AgregarAccionAppMode
 		
 		new Button(botoneraPanel) => [
 			caption = "Agregar"
-			// onClick = [| hacerAgregadoDeAccion]
+			// Hay que arreglarlo porque rompe. Creo que haciendole un appModel un poco diferente al de AgregarAccion deberia andar.
+			//onClick = [| this.agregarAccion()]
 		] 		
 	}
 	
-		override protected addActions(Panel actionsPanel) {
+	def agregarAccion() {
+	    
+	    var nuevaAccion = new IrAHabitacion() => [
+	        habitacion = modelObject.habitacionSeleccionada
+	    ]
+	    
+	    modelObject.objetoParaAgregarleAccion.agregarAccion(nuevaAccion)
+	    this.close
+	}
+	
+	override protected addActions(Panel actionsPanel) {
 	
 	}
 }

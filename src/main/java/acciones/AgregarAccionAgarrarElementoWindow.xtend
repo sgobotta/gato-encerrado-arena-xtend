@@ -45,17 +45,17 @@ class AgregarAccionAgarrarElementoWindow extends SimpleWindow<AgregarAccionAgarr
 		
 		new Button(botoneraPanel) => [
 			caption = "Agregar"
-			onClick = [| this.agregarItem]
+			onClick = [| this.agregarAccion()]
 		] 
 	}
 	
-	def agregarItem() {
+	def agregarAccion() {
 	    
 	    var nuevaAccion = new AgarrarItem() => [
 	        nombreItem = modelObject.nombreItem
 	    ]
 	    
-	    modelObject.habitacionSeleccionada.agregarAccion(nuevaAccion)
+	    modelObject.objetoParaAgregarleAccion.agregarAccion(nuevaAccion)
 	    this.close
 	}
 	

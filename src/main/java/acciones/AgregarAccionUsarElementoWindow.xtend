@@ -12,6 +12,7 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.appmodel.AgregarAccionUsarElementoAppModel
 import org.uqbar.appmodel.AgregarAccionAppModel
 
+
 class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElementoAppModel > {
 	
 	new(WindowOwner parent, AgregarAccionUsarElementoAppModel  model) {
@@ -43,7 +44,7 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElem
 			
 			caption = "Agregar acción"
 			
-			onClick = [ | new AgregarAccionWindow(this, appModelReconfigAgregarAccion(modelObject)).open() ]
+			onClick = [ | new AgregarAccionWindow(this, appModelReconfigAgregarAccion()).open() ]
 		
 		]
 		new Label(mainPanel) => [
@@ -79,7 +80,8 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElem
 		
 		new Button(botoneraPanel) => [
 			caption = "Agregar"
-			// Lease el comment en el Label de arriba.
+			// Solucionar esto, como agregarle la accion al objeto para agregarle accion, si ese mismo objeto es el objeto que tengo que agregar.
+			// onClick = [| this.agregarAccion()]
 		]	
 	}
 	
@@ -89,12 +91,13 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElem
 	}
 	
 	
-	def appModelReconfigAgregarAccion(AgregarAccionUsarElementoAppModel oldAppModel){
+	def appModelReconfigAgregarAccion(){
 		var newAppModel = new AgregarAccionAppModel()
-		newAppModel.laberintoSeleccionado = oldAppModel.laberintoSeleccionado
-		newAppModel.habitacionSeleccionada = oldAppModel.habitacionSeleccionada
+		
+		newAppModel.laberintoSeleccionado = modelObject.laberintoSeleccionado
+		newAppModel.habitacionSeleccionada = modelObject.habitacionSeleccionada
+		newAppModel.objetoParaAgregarleAccion = modelObject.objetoParaAgregarleAccion
 		newAppModel
 	}
 	
-
 }

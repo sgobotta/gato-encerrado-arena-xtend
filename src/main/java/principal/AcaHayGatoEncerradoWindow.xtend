@@ -318,6 +318,7 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		var agregarAccionModel = new AgregarAccionAppModel => [
 			laberintoSeleccionado = modelObject.laberintoSeleccionado
 			habitacionSeleccionada = modelObject.habitacionSeleccionada
+			objetoParaAgregarleAccion = modelObject.habitacionSeleccionada
 		]
 		new AgregarAccionWindow(this, agregarAccionModel).open()
 	}
