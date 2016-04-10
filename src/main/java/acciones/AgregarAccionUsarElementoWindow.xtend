@@ -49,24 +49,7 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElem
 		]
 		new Label(mainPanel) => [
 			
-			// caption = nombre de la accion seleccionada
-			
-			// By juanma: En realidad no es de la accion seleccionada, cuando yo toque "Agregar" en la accion que voy a enganchar con el item
-			// La ventana de armado de esa accion deberia cerrarse y de alguna manera mandarle a su owner cierto mensaje, como ese owner vendría
-			// a ser la ventana de seleccion de armado de accion, esa ventana a su vez tendría que mandarle a su owner (Esta clase) la data para
-			// saber cual vendría a ser la accion que se agrego. Supongo.
-			// Asi mismo, asi deberían funcionar el resto de los botones aceptar, mandandoles a su owner cierta data. Supongo. De nuevo.
-		
-		    // Ya se cierran solas las ventanas, al aceptar se manda todo a un appModel ahora.
-		    // El problema va a venir cuando querramos meterle una accion a ésta ventana. Luego de hacer
-		    // Agregar accion, la ventana que elijamos (por ejemplo ir a habitacion) tendría que setear
-		    // la accion de IrAHabitacion al appModel que le pasemos, independientemente si 
-		    // IrAHabitacion Window es triggereada de la pantalla principal o de AgregarAccionUsarElemento
-		    // Santi B.
-		    
-		    // Antes habría que solucionar el tema de la lista de items.
-		    // getTodosLosItems de laberinto busca sobre todas las acciones, inclusive aquellas
-		    // que no tienen items!
+			value <=> "accionARetornar.accion.nombre" // Por alguna razon no anda este binding... meh, despues lo preguntamos
 		]
 	
 		val botoneraPanel = new Panel(mainPanel) => [
@@ -80,7 +63,6 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElem
 		
 		new Button(botoneraPanel) => [
 			caption = "Agregar"
-			// Solucionar esto, como agregarle la accion al objeto para agregarle accion, si ese mismo objeto es el objeto que tengo que agregar.
 			onClick = [| this.agregarAccion()]
 		]	
 	}
