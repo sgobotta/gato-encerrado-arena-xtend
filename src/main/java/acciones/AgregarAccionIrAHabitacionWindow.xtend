@@ -36,7 +36,6 @@ class AgregarAccionIrAHabitacionWindow extends SimpleWindow<AgregarAccionAppMode
 		
 		new List<Habitacion>(mainPanel) => [
 			(items <=> "laberintoSeleccionado.habitaciones").adapter = new PropertyAdapter(Habitacion, "nombreHabitacion")
-			height = 150
 			width = 130
 			value <=> "habitacionSeleccionada"
 			height = 300
@@ -55,7 +54,7 @@ class AgregarAccionIrAHabitacionWindow extends SimpleWindow<AgregarAccionAppMode
 		new Button(botoneraPanel) => [
 			caption = "Agregar"
 			// Hay que arreglarlo porque rompe. Creo que haciendole un appModel un poco diferente al de AgregarAccion deberia andar.
-			//onClick = [| this.agregarAccion()]
+			onClick = [| this.agregarAccion()]
 		] 		
 	}
 	

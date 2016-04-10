@@ -44,7 +44,7 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElem
 			
 			caption = "Agregar acción"
 			
-			onClick = [ | new AgregarAccionWindow(this, appModelReconfigAgregarAccion()).open() ]
+			onClick = [ | this.agregarAccionAItem() ]
 		
 		]
 		new Label(mainPanel) => [
@@ -81,7 +81,7 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElem
 		new Button(botoneraPanel) => [
 			caption = "Agregar"
 			// Solucionar esto, como agregarle la accion al objeto para agregarle accion, si ese mismo objeto es el objeto que tengo que agregar.
-			// onClick = [| this.agregarAccion()]
+			onClick = [| this.agregarAccion()]
 		]	
 	}
 	
@@ -91,13 +91,20 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElem
 	}
 	
 	
-	def appModelReconfigAgregarAccion(){
+	def agregarAccionAItem(){
+		// Quizas tendríamos que chequear que itemSeleccionado != null y sino largar una exception que levante una ventana en algun lado.		
+		modelObject.accionARetornar.item = modelObject.itemSeleccionado
 		var newAppModel = new AgregarAccionAppModel()
-		
 		newAppModel.laberintoSeleccionado = modelObject.laberintoSeleccionado
 		newAppModel.habitacionSeleccionada = modelObject.habitacionSeleccionada
-		newAppModel.objetoParaAgregarleAccion = modelObject.objetoParaAgregarleAccion
-		newAppModel
+		newAppModel.objetoParaAgregarleAccion = modelObject.accionARetornar
+		
+		new AgregarAccionWindow(this, newAppModel).open()
+	}
+	
+	def agregarAccion(){
+		modelObject.objetoParaAgregarleAccion.agregarAccion(modelObject.accionARetornar)
+		this.close()
 	}
 	
 }
