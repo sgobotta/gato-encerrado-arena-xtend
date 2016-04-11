@@ -9,6 +9,7 @@ import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.appmodel.AgregarAccionAppModel
 import org.uqbar.appmodel.AgregarAccionUsarElementoAppModel
+import org.uqbar.appmodel.AgregarAccionAgarrarElementoAppModel
 
 // El Observable aparenta ser Habitacion, donde se guardará un "item"
 class AgregarAccionWindow extends SimpleWindow<AgregarAccionAppModel> {
@@ -48,21 +49,27 @@ class AgregarAccionWindow extends SimpleWindow<AgregarAccionAppModel> {
 	}
 	
 	def crearAccionDeUsarElemento() {
-		new AgregarAccionUsarElementoWindow(this, appModelReconfigUsarElemento(modelObject)).open()
+		var newAppModel = new AgregarAccionUsarElementoAppModel()
+		newAppModel.laberintoSeleccionado = modelObject.laberintoSeleccionado
+		newAppModel.habitacionSeleccionada = modelObject.habitacionSeleccionada
+		newAppModel.objetoParaAgregarleAccion = modelObject.objetoParaAgregarleAccion		
+        this.close 
+		new AgregarAccionUsarElementoWindow(this, newAppModel).open()
 	}
 	
-	def appModelReconfigUsarElemento(AgregarAccionAppModel oldAppModel){
-		var newAppModel = new AgregarAccionUsarElementoAppModel()
-		newAppModel.laberintoSeleccionado = oldAppModel.laberintoSeleccionado
-		newAppModel.habitacionSeleccionada = oldAppModel.habitacionSeleccionada
-		newAppModel
-	}
 	
 	def crearAccionDeAgarrarElemento() {
-		new AgregarAccionAgarrarElementoWindow(this, modelObject).open()
+	    
+	    var newAppModel = new AgregarAccionAgarrarElementoAppModel()
+	    newAppModel.laberintoSeleccionado = modelObject.laberintoSeleccionado
+	    newAppModel.habitacionSeleccionada = modelObject.habitacionSeleccionada
+	    newAppModel.objetoParaAgregarleAccion = modelObject.objetoParaAgregarleAccion
+	    this.close
+		new AgregarAccionAgarrarElementoWindow(this, newAppModel).open()
 	}
 	
 	def crearAccionDeIrAOtraHabitacion() {
+	    this.close
 		new AgregarAccionIrAHabitacionWindow(this, modelObject).open()
 	}
 	

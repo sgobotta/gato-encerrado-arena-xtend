@@ -40,7 +40,7 @@ class AgregarLaberintoWindow extends SimpleWindow<AgregarLaberintoAppModel> {
 		
 		new Button(botoneraPanel) => [
 			caption = "Cancelar"
-			this.close
+			onClick = [|this.close]
 		]
 		
 		new Button(botoneraPanel) => [

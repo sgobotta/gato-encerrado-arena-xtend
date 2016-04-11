@@ -8,11 +8,14 @@ import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.appmodel.AgregarAccionAppModel
+import org.uqbar.appmodel.AgregarAccionAgarrarElementoAppModel
 
-class AgregarAccionAgarrarElementoWindow extends SimpleWindow<AgregarAccionAppModel > {
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.AgarrarItem
+
+class AgregarAccionAgarrarElementoWindow extends SimpleWindow<AgregarAccionAgarrarElementoAppModel> {
 	
-	new(WindowOwner parent, AgregarAccionAppModel  model) {
+	new(WindowOwner parent, AgregarAccionAgarrarElementoAppModel model) {
 		super(parent, model)
 		this.setTitle("Agregar acción de Agarrar un elemento")
 		this.taskDescription = ""
@@ -27,7 +30,7 @@ class AgregarAccionAgarrarElementoWindow extends SimpleWindow<AgregarAccionAppMo
 		]
 		
 		new TextBox(mainPanel) => [
-			// binding acá
+			value <=> "nombreItem"
 			width = 100
 		]
 	
@@ -37,13 +40,23 @@ class AgregarAccionAgarrarElementoWindow extends SimpleWindow<AgregarAccionAppMo
 		
 		new Button(botoneraPanel) => [
 			caption = "Cancelar"
-			this.close
+			onClick = [| this.close()]
 		]
 		
 		new Button(botoneraPanel) => [
 			caption = "Agregar"
-			
+			onClick = [| this.agregarAccion()]
 		] 
+	}
+	
+	def agregarAccion() {
+	    
+	    var nuevaAccion = new AgarrarItem() => [
+	        nombreItem = modelObject.nombreItem
+	    ]
+	    
+	    modelObject.objetoParaAgregarleAccion.agregarAccion(nuevaAccion)
+	    this.close
 	}
 	
 		override protected addActions(Panel actionsPanel) {

@@ -118,11 +118,12 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 
 		new Button(botoneraLaberintoPanel) => [
 			caption = "Agregar Laberinto"
-			onClick = [|agregarLaberinto()]
+			onClick = [|this.agregarLaberinto]
 		]
 
 		new Button(botoneraLaberintoPanel) => [
 			caption = "Quitar Laberinto"
+			onClick = [|this.quitarLaberinto]
 		]
 	}
 
@@ -146,21 +147,10 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 			layout = new ColumnLayout(2)
 		]
 
-		new Label(habitacionesTituloPanel).text = "Habitaciones de: " 	// Si el label de abajo no se utililzará
-																		// para algún binding, entonces simplemente
-																		// se puede concatenar el nombre del laberinto
-																		// luego de "Habitaciones de:"
-
-		// Si encontramos una manera de refreshear el label cuando laberintoSeleccionado cambia, esto anda de 10.
-		//
-		// Intenté varias cosas... Creo que habría que modificar algo en el método del dominio que 
-		// está asociado al binding, pero NO SE D:
-		// Santi B.
+		new Label(habitacionesTituloPanel).text = "Habitaciones de: " 	
 				
 		new Label(habitacionesTituloPanel) => [
-			if(modelObject.laberintoSeleccionado != null){
-			text = modelObject.laberintoSeleccionado.nombreLaberinto
-			}
+		value <=> "laberintoSeleccionado.nombreLaberinto"
 		]
 	}
 
@@ -198,11 +188,12 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 
 		new Button(botoneraHabitacionesPanel) => [
 			caption = "Agregar Habitación"
-			onClick = [|agregarHabitacion]
+			onClick = [|this.agregarHabitacion]
 		]
 
 		new Button(botoneraHabitacionesPanel) => [
 			caption = "Quitar Habitación"
+			onClick = [|this.quitarHabitacion]
 		]
 	}
 
@@ -230,11 +221,8 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 
 		new Label(habitacionTituloPanel).text = "Habitación seleccionada: "
 
-		// Si encontramos una manera de refreshear el label cuando habitacionSeleccionada cambia, esto anda de 10.
 		new Label(habitacionTituloPanel) => [
-			if(modelObject.habitacionSeleccionada != null){
-			text = modelObject.habitacionSeleccionada.nombreHabitacion
-			}
+		value <=> "habitacionSeleccionada.nombreHabitacion"
 		]
 	}
 
@@ -298,6 +286,7 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 
 		new Button(botoneraHabitacionSeleccionadaPanel) => [
 			caption = "Quitar Acción"
+			onClick = [|this.quitarAccion]
 		]
 	}
 	
@@ -311,18 +300,31 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 		new AgregarLaberintoWindow(this, agregarLaberintoModel).open()
 	}
 	
+	def quitarLaberinto() {
+	    modelObject.usuario.eliminarLaberinto(modelObject.laberintoSeleccionado)
+	}
+	
 	def agregarHabitacion() {
 		var agregarHabitacionModel = new AgregarHabitacionAppModel
 		agregarHabitacionModel.laberintoSeleccionado = modelObject.laberintoSeleccionado
 		new AgregarHabitacionWindow(this, agregarHabitacionModel).open()
 	}
 	
+	def quitarHabitacion() {
+        modelObject.usuario.eliminarHabitacion(modelObject.habitacionSeleccionada, modelObject.laberintoSeleccionado)
+    }
+	
 	def agregarAccion() {
 		var agregarAccionModel = new AgregarAccionAppModel => [
 			laberintoSeleccionado = modelObject.laberintoSeleccionado
 			habitacionSeleccionada = modelObject.habitacionSeleccionada
+			objetoParaAgregarleAccion = modelObject.habitacionSeleccionada
 		]
 		new AgregarAccionWindow(this, agregarAccionModel).open()
+	}
+	
+	def quitarAccion() {
+	    modelObject.habitacionSeleccionada.eliminarAccion(modelObject.accionSeleccionada)
 	}
 	
 }
