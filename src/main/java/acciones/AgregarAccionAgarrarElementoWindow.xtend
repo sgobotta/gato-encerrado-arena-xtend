@@ -21,6 +21,11 @@ class AgregarAccionAgarrarElementoWindow extends SimpleWindow<AgregarAccionAgarr
 		this.taskDescription = ""
 	}
 	
+	override void createMainTemplate(Panel mainPanel) {
+        this.createFormPanel(mainPanel);
+        this.createActionsPanel(mainPanel);
+    }
+	
 	override protected createFormPanel(Panel mainPanel) {
 	
 		mainPanel.layout = new VerticalLayout()
