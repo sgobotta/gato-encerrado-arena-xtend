@@ -8,37 +8,28 @@ import org.uqbar.arena.widgets.Label
 import java.awt.Color
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.windows.Dialog
-import org.uqbar.exceptions.MyLoginException
 import org.uqbar.arena.widgets.PasswordField
 import org.uqbar.arena.windows.ErrorsPanel
 import org.uqbar.appmodel.CrearUsuarioAppModel
 import org.uqbar.appmodel.LoginAppModel
+import org.uqbar.arena.windows.SimpleWindow
+import org.uqbar.arena.windows.WindowOwner
 
-class LoginWindow extends MainWindow<LoginAppModel>{
+class LoginWindow extends SimpleWindow<LoginAppModel>{
 	
-	new(LoginAppModel model) {
-		super(model)
+	new(WindowOwner parent, LoginAppModel model) {
+		super(parent, model)
 	}
 	
-	new() {
-		super(new LoginAppModel)
+	new(WindowOwner parent) {
+		super(parent, new LoginAppModel)
 	}
 	
-	override createContents(Panel mainPanel) {
-		
-		this.title = "Log in"
-		
-		var panelDeLogeo = new Panel(mainPanel) => [
-			
-			width = 200
-		]
-		
-		new ErrorsPanel(panelDeLogeo, "Ingrese nombre de usuario y contraseña") => [
-			
-		]		
-		this.crearPanelDelFormulario(panelDeLogeo, Color.BLACK, Color.CYAN)
-		this.crearPanelDeAcciones(panelDeLogeo, Color.BLACK, Color.CYAN)
-		
+//	override createContents(Panel mainPanel) {
+//	}
+	
+	def defaultTitle() {
+		this.title = "Log In"
 	}
 	
 	def crearPanelDeAcciones(Panel panel, Color letra, Color fondo) {
@@ -69,9 +60,9 @@ class LoginWindow extends MainWindow<LoginAppModel>{
 		//pasar a otra ventana con usuarioSeleccionado
 			this.close
 		}
-		catch(MyLoginException expected){
+		catch(Exception expected){
 		//avisar que no se pudo logear el wachin
-			expected.message
+			showError(expected.message)
 		}
 	}
 	
@@ -80,7 +71,6 @@ class LoginWindow extends MainWindow<LoginAppModel>{
 	}
 	
 	def openDialog(Dialog<?> dialog) {
-		//dialog.onAccept[|modelObject.]
 		dialog.open
 	}
 	
@@ -106,7 +96,19 @@ class LoginWindow extends MainWindow<LoginAppModel>{
 		
 		return formPanel
 	}
-	def static main(String[] args) {
-		new LoginWindow().startApplication
+	
+	override protected addActions(Panel actionsPanel) {
 	}
+	
+	override protected createFormPanel(Panel mainPanel) {
+		this.defaultTitle()
+		var panelDeLogeo = new Panel(mainPanel) => [
+			
+			width = 200
+		]	
+		this.crearPanelDelFormulario(panelDeLogeo, Color.BLACK, Color.CYAN)
+		this.crearPanelDeAcciones(panelDeLogeo, Color.BLACK, Color.CYAN)
+		
+	}
+	
 }
