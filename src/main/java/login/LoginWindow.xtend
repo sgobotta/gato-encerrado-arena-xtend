@@ -56,15 +56,9 @@ class LoginWindow extends SimpleWindow<LoginAppModel>{
 	}
 	
 	def logearUsuario() {
-		try{
 			modelObject.logearUsuario()
 		//pasar a otra ventana con usuarioSeleccionado
 			this.close
-		}
-		catch(Exception expected){
-		//avisar que no se pudo logear el wachin
-			showError(expected.message)
-		}
 	}
 	
 	def void crearUsuario() {

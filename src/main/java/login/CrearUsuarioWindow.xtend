@@ -39,13 +39,8 @@ class CrearUsuarioWindow extends TransactionalDialog<CrearUsuarioAppModel>{
 	}
 	
 	def crearUsuario() {
-		try{
-			modelObject.registrarUsuario()
-			this.close()
-		}
-		catch(Exception e){
-			showError(e.message)
-		}
+		modelObject.registrarUsuario()
+		this.close()
 	}
 	
 	def crearPanelDeRegistroDeUsuario(Panel panel) {
