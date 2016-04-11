@@ -20,6 +20,11 @@ class AgregarHabitacionWindow extends SimpleWindow<AgregarHabitacionAppModel> {
 		this.taskDescription = ""
 	}
 	
+	override void createMainTemplate(Panel mainPanel) {
+        this.createFormPanel(mainPanel);
+        this.createActionsPanel(mainPanel);
+    }
+    
 	override protected createFormPanel(Panel mainPanel) {
 	
 		mainPanel.layout = new VerticalLayout()
