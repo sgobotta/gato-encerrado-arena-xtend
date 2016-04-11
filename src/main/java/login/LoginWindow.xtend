@@ -95,12 +95,17 @@ class LoginWindow extends SimpleWindow<LoginAppModel>{
 	override protected addActions(Panel actionsPanel) {
 	}
 	
+	def getDescription() {
+		return modelObject.description
+	}
+	
 	override protected createFormPanel(Panel mainPanel) {
 		this.defaultTitle()
+		
+		
 		var panelDeLogeo = new Panel(mainPanel) => [
-			
 			width = 200
-		]	
+		]
 		this.crearPanelDelFormulario(panelDeLogeo, Color.BLACK, Color.CYAN)
 		this.crearPanelDeAcciones(panelDeLogeo, Color.BLACK, Color.CYAN)
 		new Label(mainPanel).text = "New here? Create an account"

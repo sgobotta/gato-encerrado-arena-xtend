@@ -235,8 +235,10 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 			layout = new ColumnLayout(2)
 		]
 
+
 		new CheckBox(habitacionCheckBoxPanel) => [
 			value <=> "habitacionSeleccionada.first"
+				
 		]
 
 		new Label(habitacionCheckBoxPanel).text = "¿Es inicial?"
