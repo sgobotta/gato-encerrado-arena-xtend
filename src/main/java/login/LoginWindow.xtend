@@ -2,18 +2,17 @@ package login
 
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.TextBox
-import org.uqbar.arena.windows.MainWindow
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.widgets.Label
 import java.awt.Color
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.widgets.PasswordField
-import org.uqbar.arena.windows.ErrorsPanel
 import org.uqbar.appmodel.CrearUsuarioAppModel
 import org.uqbar.appmodel.LoginAppModel
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.arena.layout.ColumnLayout
 
 class LoginWindow extends SimpleWindow<LoginAppModel>{
 	
@@ -33,7 +32,9 @@ class LoginWindow extends SimpleWindow<LoginAppModel>{
 	}
 	
 	def crearPanelDeAcciones(Panel panel, Color letra, Color fondo) {
-		var actionPanel = new Panel(panel)
+		var actionPanel = new Panel(panel) => [
+			layout = new ColumnLayout(2)
+		]
 		
 		new Button(actionPanel) => [
 			caption = "Log In"
@@ -42,7 +43,7 @@ class LoginWindow extends SimpleWindow<LoginAppModel>{
 			foreground = letra
 			background = fondo
 		]
-		new Label(actionPanel).text = "New here? Create an account"
+		
 		new Button(actionPanel) => [
 			caption = "Sign Up"
 			width = 100
@@ -90,7 +91,7 @@ class LoginWindow extends SimpleWindow<LoginAppModel>{
 			foreground = letra
 		]
 		new PasswordField(formPanel) => [
-			value <=> "contraseñaDeUsuarioALogeaer"
+			value <=> "contraseñaDeUsuarioALogear"
 			width = 200
 		]
 		
@@ -108,7 +109,7 @@ class LoginWindow extends SimpleWindow<LoginAppModel>{
 		]	
 		this.crearPanelDelFormulario(panelDeLogeo, Color.BLACK, Color.CYAN)
 		this.crearPanelDeAcciones(panelDeLogeo, Color.BLACK, Color.CYAN)
-		
+		new Label(mainPanel).text = "New here? Create an account"
 	}
 	
 }
