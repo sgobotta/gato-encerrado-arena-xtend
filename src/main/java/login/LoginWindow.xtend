@@ -8,11 +8,11 @@ import java.awt.Color
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.widgets.PasswordField
-import org.uqbar.appmodel.CrearUsuarioAppModel
 import org.uqbar.appmodel.LoginAppModel
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.layout.ColumnLayout
+import org.uqbar.appmodel.CrearCuentaAppModel
 
 class LoginWindow extends SimpleWindow<LoginAppModel>{
 	
@@ -38,7 +38,7 @@ class LoginWindow extends SimpleWindow<LoginAppModel>{
 		
 		new Button(actionPanel) => [
 			caption = "Log In"
-			onClick = [|modelObject.logearUsuario]
+			onClick = [|this.logearUsuario]
 			width = 100
 			foreground = letra
 			background = fondo
@@ -54,15 +54,15 @@ class LoginWindow extends SimpleWindow<LoginAppModel>{
 	return actionPanel
 		
 	}
-	/* 
+ 
 	def logearUsuario() {
 			modelObject.logearUsuario()
 		//pasar a otra ventana con usuarioSeleccionado
 			this.close
 	}
-	*/
+
 	def void crearUsuario() {
-		this.openDialog(new CrearUsuarioWindow(this, new CrearUsuarioAppModel(modelObject.servicioDeLogeo)))
+		this.openDialog(new CrearCuentaWindow(this, new CrearCuentaAppModel(modelObject.servicioDeLogeo)))
 	}
 	
 	def openDialog(Dialog<?> dialog) {

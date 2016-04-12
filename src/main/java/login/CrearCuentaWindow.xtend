@@ -8,21 +8,21 @@ import org.uqbar.arena.widgets.TextBox
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Button
-import org.uqbar.appmodel.CrearUsuarioAppModel
+import org.uqbar.appmodel.CrearCuentaAppModel
 
-class CrearUsuarioWindow extends TransactionalDialog<CrearUsuarioAppModel>{
-	new(WindowOwner owner, CrearUsuarioAppModel model) {
+class CrearCuentaWindow extends TransactionalDialog<CrearCuentaAppModel>{
+	new(WindowOwner owner, CrearCuentaAppModel model) {
 		super(owner, model)
 		title = defaultTitle
 	}
 	
 	def defaultTitle() {
-		"Registro de nuevo usuario"
+		"Registro de nueva cuenta"
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
 
-		this.crearPanelDeRegistroDeUsuario(mainPanel)
+		this.crearPanelDeRegistroDeCuenta(mainPanel)
 		this.crearPanelDeAcciones(mainPanel)
 	}
 	
@@ -30,7 +30,7 @@ class CrearUsuarioWindow extends TransactionalDialog<CrearUsuarioAppModel>{
 		var panelDeAcciones = new Panel(panel)
 		new Button(panelDeAcciones) => [
 			caption = "Registrar"
-			onClick = [| this.crearUsuario()]
+			onClick = [| this.crearCuenta]
 		]
 		new Button(panelDeAcciones) => [
 			caption = "cancelar"
@@ -38,20 +38,21 @@ class CrearUsuarioWindow extends TransactionalDialog<CrearUsuarioAppModel>{
 		]
 	}
 	
-	def crearUsuario() {
-		modelObject.registrarUsuario()
+	def crearCuenta() {
+		modelObject.registrarCuenta()
 		this.close()
 	}
 	
-	def crearPanelDeRegistroDeUsuario(Panel panel) {
+	
+	def crearPanelDeRegistroDeCuenta(Panel panel) {
 		var panelDeRegistracion = new Panel(panel).layout = new ColumnLayout(2)
 		new Label(panelDeRegistracion).text = "username"
 		new TextBox(panelDeRegistracion) => [
-			value <=> "nombre"
+			value <=> "nombreCuentaACrear"
 		]
 		new Label(panelDeRegistracion).text = "password"
 		new TextBox(panelDeRegistracion) => [
-			value <=> "password"
+			value <=> "passwordCuentaACrear"
 		]
 		
 	}
