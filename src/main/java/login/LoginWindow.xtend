@@ -38,7 +38,7 @@ class LoginWindow extends SimpleWindow<LoginAppModel>{
 		
 		new Button(actionPanel) => [
 			caption = "Log In"
-			onClick = [|this.logearUsuario]
+			onClick = [|modelObject.logearUsuario]
 			width = 100
 			foreground = letra
 			background = fondo
@@ -54,13 +54,13 @@ class LoginWindow extends SimpleWindow<LoginAppModel>{
 	return actionPanel
 		
 	}
-	
+	/* 
 	def logearUsuario() {
 			modelObject.logearUsuario()
 		//pasar a otra ventana con usuarioSeleccionado
 			this.close
 	}
-	
+	*/
 	def void crearUsuario() {
 		this.openDialog(new CrearUsuarioWindow(this, new CrearUsuarioAppModel(modelObject.servicioDeLogeo)))
 	}
@@ -77,7 +77,7 @@ class LoginWindow extends SimpleWindow<LoginAppModel>{
 			foreground = letra
 		]
 		new TextBox(formPanel) => [
-			value <=> "nombreDeUsuarioALogear"
+			value <=> "nombreDeCuentaALogear"
 			width = 200
 		]
 		new Label(formPanel) => [
@@ -85,7 +85,7 @@ class LoginWindow extends SimpleWindow<LoginAppModel>{
 			foreground = letra
 		]
 		new PasswordField(formPanel) => [
-			value <=> "contraseñaDeUsuarioALogear"
+			value <=> "contraseñaDeCuentaALogear"
 			width = 200
 		]
 		
@@ -93,10 +93,6 @@ class LoginWindow extends SimpleWindow<LoginAppModel>{
 	}
 	
 	override protected addActions(Panel actionsPanel) {
-	}
-	
-	def getDescription() {
-		return modelObject.description
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
