@@ -78,8 +78,7 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElem
 	}
 	
 	
-	def agregarAccionAItem(){
-		// Quizas tendríamos que chequear que itemSeleccionado != null y sino largar una exception que levante una ventana en algun lado.		
+	def agregarAccionAItem(){	
 		modelObject.accionARetornar.item = modelObject.itemSeleccionado
 		var newAppModel = new AgregarAccionAppModel()
 		newAppModel.laberintoSeleccionado = modelObject.laberintoSeleccionado
