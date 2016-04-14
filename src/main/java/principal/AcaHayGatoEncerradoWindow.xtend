@@ -161,15 +161,6 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 	 */
     def armarListaSegundaColumna(Panel segundaColumna) {
 
-        //Si yo elijo un laberinto y despues una habitacion, y luego cambio el laberinto, el error panel va a decir
-        // Cannot convert from null to primitive
-        // Creo que es porque al volver a seleccionarse un nuevo laberinto, la habitacion que antes estaba seleccionada
-        // no forma mas parte de las habitaciones de ese laberinto, pero no estoy seguro.
-        // Entiendo, pero no logro encontrarle la vuelta, estoy seguro que se puede. Tiene que ser parecido
-        // a ese binding que nos mostraron con la conversion al instante de millas a kilómetros, modificando
-        // los convertir en el dominio, o algo parecido... habría que probar si una label se actualiza sola
-        // haciendo algo por el estilo, luego verlo en una list.
-        // Santi B. 
         new List(segundaColumna) => [
             (items <=> "laberintoSeleccionado.habitaciones").adapter = new PropertyAdapter(Habitacion,
                 "nombreHabitacion")
@@ -242,14 +233,9 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
             layout = new ColumnLayout(2)
         ]
 
-
-		new CheckBox(habitacionCheckBoxPanel) => [
-			value <=> "habitacionSeleccionada.first"
-				
-		]
         new CheckBox(habitacionCheckBoxPanel) => [
             visible <=> "habSelected"
-            (value <=> "habitacionSeleccionada.first").transformer = new NullToBoolean()
+            (value <=> "first").transformer = new NullToBoolean()
         ]
 
         new Label(habitacionCheckBoxPanel) => [
@@ -259,7 +245,7 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 
         new CheckBox(habitacionCheckBoxPanel) => [
             visible <=> "habSelected"
-            (value <=> "habitacionSeleccionada.last").transformer = new NullToBoolean()
+            (value <=> "last").transformer = new NullToBoolean()
         ]
 
         new Label(habitacionCheckBoxPanel) => [
