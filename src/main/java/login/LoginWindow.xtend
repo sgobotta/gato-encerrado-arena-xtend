@@ -13,6 +13,8 @@ import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.appmodel.CrearCuentaAppModel
+import principal.AcaHayGatoEncerradoWindow
+import org.uqbar.appmodel.GatoEncerradoAppModel
 
 class LoginWindow extends SimpleWindow<LoginAppModel>{
 	
@@ -24,9 +26,6 @@ class LoginWindow extends SimpleWindow<LoginAppModel>{
 		super(parent, new LoginAppModel)
 	}
 	
-//	override createContents(Panel mainPanel) {
-//	}
-	
 	def defaultTitle() {
 		this.title = "Log In"
 	}
@@ -35,63 +34,15 @@ class LoginWindow extends SimpleWindow<LoginAppModel>{
 		var actionPanel = new Panel(panel) => [
 			layout = new ColumnLayout(2)
 		]
-		
-		new Button(actionPanel) => [
-			caption = "Log In"
-			onClick = [|this.logearUsuario]
-			width = 100
-			foreground = letra
-			background = fondo
+		this.crearBotonConCaptionYColor(actionPanel, "log In", letra,fondo) => [
+			onClick = [| this.logearUsuario]
 		]
-		
-		new Button(actionPanel) => [
-			caption = "Sign Up"
-			width = 100
-			foreground = letra
-			background = fondo
+		this.crearBotonConCaptionYColor(actionPanel, "Sign Up", letra, fondo) => [
 			onClick = [|this.crearUsuario]
 		]
 	return actionPanel
 		
 	}
- 
-	def logearUsuario() {
-			modelObject.logearUsuario()
-		//pasar a otra ventana con usuarioSeleccionado
-			this.close
-	}
-
-	def void crearUsuario() {
-		this.openDialog(new CrearCuentaWindow(this, new CrearCuentaAppModel(modelObject.servicioDeLogeo)))
-	}
-	
-	def openDialog(Dialog<?> dialog) {
-		dialog.open
-	}
-	
-	def crearPanelDelFormulario(Panel parent, Color letra, Color fondo) {
-		var formPanel = new Panel(parent)
-		
-		new Label(formPanel) => [
-			text = "username"
-			foreground = letra
-		]
-		new TextBox(formPanel) => [
-			value <=> "nombreDeCuentaALogear"
-			width = 200
-		]
-		new Label(formPanel) => [
-			text = "password"
-			foreground = letra
-		]
-		new PasswordField(formPanel) => [
-			value <=> "contraseñaDeCuentaALogear"
-			width = 200
-		]
-		
-		return formPanel
-	}
-	
 	override protected addActions(Panel actionsPanel) {
 	}
 	
@@ -104,7 +55,66 @@ class LoginWindow extends SimpleWindow<LoginAppModel>{
 		]
 		this.crearPanelDelFormulario(panelDeLogeo, Color.BLACK, Color.CYAN)
 		this.crearPanelDeAcciones(panelDeLogeo, Color.BLACK, Color.CYAN)
-		new Label(mainPanel).text = "New here? Create an account"
+		this.crearLabelConTexto(panelDeLogeo,"New here? Create an account", Color.GRAY)
+	}
+
+
+	
+	def crearPanelDelFormulario(Panel parent, Color letra, Color fondo) {
+		var formPanel = new Panel(parent)
+		
+		this.crearLabelConTexto(formPanel, "username", letra)
+		this.crearTextBoxConValue(formPanel, "nombreDeCuentaALogear")
+
+		this.crearLabelConTexto(formPanel, "password", letra)
+		new PasswordField(formPanel) => [
+			value <=> "contraseñaDeCuentaALogear"
+		]
+		
+		return formPanel
 	}
 	
+	// widgets
+	
+	def crearBotonConCaptionYColor(Panel panel, String text, Color letra, Color fondo) {
+		new Button(panel) => [
+			caption = text
+			width = 100
+			foreground = letra
+			background = fondo
+		]
+	}	
+	def crearTextBoxConValue(Panel panel, String valueText) {
+		new TextBox(panel) => [
+			value <=> valueText
+			width = 200
+		]
+	}
+	
+	def crearLabelConTexto(Panel panel, String texto, Color letra) {
+		new Label(panel) =>[
+			text = texto
+			foreground = letra
+		]
+	}
+	
+
+	// ventanas
+	
+	def logearUsuario() {
+		modelObject.logearUsuario()
+		this.abrirGatoEncerradoWindow()
+	}
+	
+	def abrirGatoEncerradoWindow() {
+		new AcaHayGatoEncerradoWindow(this, new GatoEncerradoAppModel(this.modelObject.getUsuario())).open
+	}
+
+	def void crearUsuario() {
+		this.openDialog(new CrearCuentaWindow(this, new CrearCuentaAppModel(modelObject.servicioDeLogeo)))
+	}
+	
+	def openDialog(Dialog<?> dialog) {
+		dialog.open
+	}
 }
