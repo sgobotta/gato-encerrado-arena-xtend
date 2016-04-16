@@ -11,7 +11,7 @@ import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.appmodel.AgregarAccionAgarrarElementoAppModel
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.AgarrarItem
+import org.uqbar.acciones.AgarrarItem
 
 class AgregarAccionAgarrarElementoWindow extends SimpleWindow<AgregarAccionAgarrarElementoAppModel> {
 	

@@ -13,7 +13,7 @@ import org.uqbar.appmodel.AgregarAccionAppModel
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.bindings.PropertyAdapter
-import org.uqbar.IrAHabitacion
+import org.uqbar.acciones.IrAHabitacion
 
 
 class AgregarAccionIrAHabitacionWindow extends SimpleWindow<AgregarAccionAppModel > {

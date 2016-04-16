@@ -18,7 +18,7 @@ import org.uqbar.Laberinto
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.appmodel.AgregarAccionAppModel
-import org.uqbar.Accion
+import org.uqbar.acciones.Accion
 import laberinto.AgregarLaberintoWindow
 import org.uqbar.appmodel.AgregarLaberintoAppModel
 import org.uqbar.appmodel.AgregarHabitacionAppModel
