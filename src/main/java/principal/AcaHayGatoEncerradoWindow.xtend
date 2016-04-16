@@ -1,13 +1,7 @@
 package principal
 
-import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.layout.ColumnLayout
 import java.awt.Color
-import org.uqbar.arena.widgets.CheckBox
-import org.uqbar.arena.layout.HorizontalLayout
-import org.uqbar.arena.widgets.List
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import acciones.AgregarAccionWindow
@@ -23,9 +17,11 @@ import laberinto.AgregarLaberintoWindow
 import org.uqbar.appmodel.AgregarLaberintoAppModel
 import org.uqbar.appmodel.AgregarHabitacionAppModel
 import habitacion.AgregarHabitacionWindow
-import utils.NullToBoolean
+import utils.CreadorDeWidgets
 
 class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
+
+	private CreadorDeWidgets creador = new CreadorDeWidgets()
 
     new(WindowOwner parent, GatoEncerradoAppModel model) {
         super(parent, model)
@@ -45,17 +41,12 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 
     def armarCabecera(Panel mainPanel) {
 
-        new Label(mainPanel) => [
-            text = "Hola " + modelObject.usuario.nombre + "! Administrá todos tus laberintos"
-        ]
-
-        new Label(mainPanel) => [
-            text = "Acá hay gato encerrado..."
-            fontSize = 20
+		creador.crearLabelConTexto(mainPanel, "Hola " + modelObject.usuario.nombre + "! Administrá todos tus laberintos")
+		creador.crearLabelConTexto(mainPanel, "Acá hay gato encerrado...") => [
+			fontSize = 20
             background = Color.RED
-        ]
+		]
     }
-
     // *************************************************
     // ** Métodos asociados al Layout
     // *************************************************
@@ -63,165 +54,114 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 	 * Panel contenedor principal de tres paneles
 	 */
     def armarColumnas(Panel mainPanel) {
-
-        var contenedorPanel = new Panel(mainPanel) => [
-            layout = new ColumnLayout(3)
-        ]
-
-        armarPrimeraColumna(contenedorPanel)
-        armarSegundaColumna(contenedorPanel)
-        armarTerceraColumna(contenedorPanel)
+		var contenedorPanel = creador.crearPanelConColumnas(mainPanel, 3)
+		
+        armarPanelDeLaberintos(contenedorPanel)
+        armarPanelDeHabitaciones(contenedorPanel)
+        armarPanelDeSeleccionarHabComoInicialFinalYPanelAcciones(contenedorPanel)
     }
 
     /**
 	 * Primera columna: Laberintos
 	 */
-    def armarPrimeraColumna(Panel contenedorPanel) {
+    def armarPanelDeLaberintos(Panel contenedorPanel) {
 
-        var primeraColumna = new Panel(contenedorPanel)
-        armarTituloPrimeraColumna(primeraColumna)
-        armarListaPrimeraColumna(primeraColumna)
-        armarBotonesPrimeraColumna(primeraColumna)
-
-    }
-
-    /**
-	 * Titulo primera columna: laberintos
-	 */
-    def armarTituloPrimeraColumna(Panel primeraColumna) {
-        new Label(primeraColumna).text = "Laberintos"
-    }
-
-    /**
-	 * Lista de laberintos
-	 */
-    def armarListaPrimeraColumna(Panel primeraColumna) {
-
-        new List(primeraColumna) => [
+        var panelDeLaberintos = new Panel(contenedorPanel)
+        creador.crearLabelConTexto(panelDeLaberintos, "Laberintos")
+        creador.crearListaConValue(panelDeLaberintos, "laberintoSeleccionado") => [
             (items <=> "usuario.laberintos").adapter = new PropertyAdapter(Laberinto, "nombreLaberinto")
             height = 300
-            width = 130
-            value <=> "laberintoSeleccionado"
+            width = 130       	
         ]
+        armarBotonesPanelDeLaberintos(panelDeLaberintos)
 
     }
 
     /**
 	 * Botonera para laberintos
 	 */
-    def armarBotonesPrimeraColumna(Panel primeraColumna) {
+    def armarBotonesPanelDeLaberintos(Panel panel) {
 
-        var botoneraLaberintoPanel = new Panel(primeraColumna) => [
-            layout = new HorizontalLayout
-        ]
-
-        new Button(botoneraLaberintoPanel) => [
-            caption = "Agregar Laberinto"
-            onClick = [|this.agregarLaberinto]
-        ]
-
-        new Button(botoneraLaberintoPanel) => [
-            caption = "Quitar Laberinto"
-            onClick = [|this.quitarLaberinto]
-        ]
+        var botoneraLaberintoPanel = creador.crearPanelHorizontal(panel)
+		creador.crearBotonConCaptionYonClick(botoneraLaberintoPanel, "Agregar Laberinto", [|this.agregarLaberinto])
+		creador.crearBotonConCaptionYonClick(botoneraLaberintoPanel, "Quitar Laberinto", [|this.quitarLaberinto])
     }
-
+	
     /**
 	 * Segunda columna: Habitaciones
 	 */
-    def armarSegundaColumna(Panel contenedorPanel) {
+    def armarPanelDeHabitaciones(Panel contenedorPanel) {
 
-        var segundaColumna = new Panel(contenedorPanel)
-        armarTituloSegundaColumna(segundaColumna)
-        armarListaSegundaColumna(segundaColumna)
-        armarBotonesSegundaColumna(segundaColumna)
+        var panelDeHabitaciones = new Panel(contenedorPanel)
+        armarTituloPanelDeHabitaciones(panelDeHabitaciones)
+        creador.crearListaConValue(panelDeHabitaciones, "habitacionSeleccionada") => [
+            (items <=> "laberintoSeleccionado.habitaciones").adapter = new PropertyAdapter(Habitacion,
+                "nombreHabitacion")
+            height = 300
+            width = 130
+        ]
+        armarBotonesPanelDeHabitaciones(panelDeHabitaciones)
     }
 
     /**
 	 * Titulo segunda columna: habitaciones
 	 */
-    def armarTituloSegundaColumna(Panel segundaColumna) {
+    def armarTituloPanelDeHabitaciones(Panel segundaColumna) {
 
-        var habitacionesTituloPanel = new Panel(segundaColumna) => [
-            layout = new ColumnLayout(2)
-        ]
+        var habitacionesTituloPanel = creador.crearPanelConColumnas(segundaColumna, 2)
 
-        new Label(habitacionesTituloPanel) => [
-            text = "Habitaciones de: "
-            visible <=> "labSelected"
-        ]
+		creador.crearLabelConTextoYVisibilidad(habitacionesTituloPanel, "Habitaciones de: ", "labSelected")
+        creador.crearLabelConValue(habitacionesTituloPanel, "laberintoSeleccionado.nombreLaberinto")
 
-        new Label(habitacionesTituloPanel) => [
-            value <=> "laberintoSeleccionado.nombreLaberinto"
-        ]
-    }
-
-    /**
-	 * Lista para habitaciones
-	 */
-    def armarListaSegundaColumna(Panel segundaColumna) {
-
-        new List(segundaColumna) => [
-            (items <=> "laberintoSeleccionado.habitaciones").adapter = new PropertyAdapter(Habitacion,
-                "nombreHabitacion")
-            height = 300
-            width = 130
-            value <=> "habitacionSeleccionada"
-        ]
     }
 
     /**
 	 * Botonera segunda columna
 	 */
-    def armarBotonesSegundaColumna(Panel segundaColumna) {
+    def armarBotonesPanelDeHabitaciones(Panel panelDeHabitaciones) {
 
-        var botoneraHabitacionesPanel = new Panel(segundaColumna) => [
-            layout = new HorizontalLayout
-        ]
-
-        new Button(botoneraHabitacionesPanel) => [
-            enabled <=> "labSelected"
-            caption = "Agregar Habitación"
-            onClick = [|this.agregarHabitacion]
-        ]
-
-        new Button(botoneraHabitacionesPanel) => [
-            enabled <=> "labSelected"
-            caption = "Quitar Habitación"
-            onClick = [|this.quitarHabitacion]
-        ]
+        var botoneraHabitacionesPanel = creador.crearPanelHorizontal(panelDeHabitaciones)
+		creador.crearBotonConCaptionYonClickYEnabled(botoneraHabitacionesPanel, "Agregar Habitacion", [|this.agregarHabitacion], "labSelected" )
+		creador.crearBotonConCaptionYonClickYEnabled(botoneraHabitacionesPanel, "Quitar Habitacion", [|this.quitarHabitacion], "labSelected" )
     }
 
     /**
 	 * Segunda columna: habitación seleccionada y acciones
 	 */
-    def armarTerceraColumna(Panel contenedorPanel) {
+    def armarPanelDeSeleccionarHabComoInicialFinalYPanelAcciones(Panel panel) {
 
-        var terceraColumna = new Panel(contenedorPanel)
-        armarPrimerTituloTerceraColumna(terceraColumna)
-        armarCheckBoxesTerceraColumna(terceraColumna)
-        armarSegundoTituloTerceraColumna(terceraColumna)
-        armarListaTerceraColumna(terceraColumna)
-        armarBotonesTerceraColumna(terceraColumna)
+		var panelDeSeleccionarHabFinalInicialYPanelDeAcciones = new Panel(panel)
+		//inicial - final
+		armarPanelDeSeleccionarHabInicialFinal(panelDeSeleccionarHabFinalInicialYPanelDeAcciones)
+        //acciones
+        armarPanelDeAcciones(panelDeSeleccionarHabFinalInicialYPanelDeAcciones)
     }
-
+	
+	def armarPanelDeSeleccionarHabInicialFinal(Panel panel) {
+        var panelDeSeleccionarHabInicialFinal = new Panel(panel)
+        armarPrimerTituloTerceraColumna(panelDeSeleccionarHabInicialFinal)
+        armarCheckBoxesTerceraColumna(panelDeSeleccionarHabInicialFinal)
+	}
+	
+	def armarPanelDeAcciones(Panel panel) {
+        var panelDeAcciones = new Panel(panel)
+        creador.crearLabelConTexto(panelDeAcciones, "Acciones")
+        creador.crearListaConValue(panelDeAcciones, "accionSeleccionada") => [
+            (items <=> "habitacionSeleccionada.acciones").adapter = new PropertyAdapter(Accion, "nombre")
+            height = 300
+        ]
+        armarBotonesTerceraColumna(panelDeAcciones)
+	}
+	
     /**
 	 * Primer título tercer columna: habitación seleccionada 
 	 */
     def armarPrimerTituloTerceraColumna(Panel terceraColumna) {
 
-        var habitacionTituloPanel = new Panel(terceraColumna) => [
-            layout = new ColumnLayout(2)
-        ]
-
-        new Label(habitacionTituloPanel) => [
-            text = "Habitación seleccionada: "
-            visible <=> "habSelected"
-        ]
-
-        new Label(habitacionTituloPanel) => [
-            value <=> "habitacionSeleccionada.nombreHabitacion"
-        ]
+        var habitacionTituloPanel = creador.crearPanelConColumnas(terceraColumna, 2)
+        
+		creador.crearLabelConTextoYVisibilidad(habitacionTituloPanel, "Habitación seleccionada: ", "habSelected")
+        creador.crearLabelConValue(habitacionTituloPanel, "habitacionSeleccionada.nombreHabitacion")
     }
 
     /**
@@ -229,72 +169,27 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 	 */
     def armarCheckBoxesTerceraColumna(Panel terceraColumna) {
 
-        var habitacionCheckBoxPanel = new Panel(terceraColumna) => [
-            layout = new ColumnLayout(2)
-        ]
+        var habitacionCheckBoxPanel = creador.crearPanelConColumnas(terceraColumna, 2)
+        
+        creador.crearCheckBoxConValueYVisibildad(habitacionCheckBoxPanel, "first", "habSelected")
+		creador.crearLabelConTextoYVisibilidad(habitacionCheckBoxPanel, "¿Es inicial?", "habSelected")
 
-        new CheckBox(habitacionCheckBoxPanel) => [
-            visible <=> "habSelected"
-            (value <=> "first").transformer = new NullToBoolean()
-        ]
-
-        new Label(habitacionCheckBoxPanel) => [
-            text = "¿Es inicial?"
-            visible <=> "habSelected"
-        ]
-
-        new CheckBox(habitacionCheckBoxPanel) => [
-            visible <=> "habSelected"
-            (value <=> "last").transformer = new NullToBoolean()
-        ]
-
-        new Label(habitacionCheckBoxPanel) => [
-            text = "¿Es final?"
-            visible <=> "habSelected"
-        ]
+		creador.crearCheckBoxConValueYVisibildad(habitacionCheckBoxPanel, "last", "habSelected")
+		creador.crearLabelConTextoYVisibilidad(habitacionCheckBoxPanel, "¿Es final?", "habSelected")
     }
-
-    /**
-	 * Segundo título tercer columna: acciones
-	 */
-    def armarSegundoTituloTerceraColumna(Panel terceraColumna) {
-        new Label(terceraColumna).text = "Acciones"
-    }
-
-    /**
-	 * Lista de acciones
-	 */
-    def armarListaTerceraColumna(Panel terceraColumna) {
-
-        new List(terceraColumna) => [
-            (items <=> "habitacionSeleccionada.acciones").adapter = new PropertyAdapter(Accion, "nombre")
-            height = 300
-            value <=> "accionSeleccionada"
-        ]
-
-    }
+	
 
     /**
 	 * Botonera para una habitación
 	 */
     def armarBotonesTerceraColumna(Panel terceraColumna) {
 
-        var botoneraHabitacionSeleccionadaPanel = new Panel(terceraColumna) => [
-            layout = new HorizontalLayout
-        ]
+        var botoneraHabitacionSeleccionadaPanel = creador.crearPanelHorizontal(terceraColumna)
 
-        new Button(botoneraHabitacionSeleccionadaPanel) => [
-            enabled <=> "habSelected"
-            caption = "Agregar Acción"
-            onClick = [|this.agregarAccion]
-        ]
-
-        new Button(botoneraHabitacionSeleccionadaPanel) => [
-            enabled <=> "habSelected"
-            caption = "Quitar Acción"
-            onClick = [|this.quitarAccion]
-        ]
+		creador.crearBotonConCaptionYonClickYEnabled(botoneraHabitacionSeleccionadaPanel, "Agregar Acción", [|this.agregarAccion], "habSelected")
+		creador.crearBotonConCaptionYonClickYEnabled(botoneraHabitacionSeleccionadaPanel, "Quitar Acción", [|this.quitarAccion], "habSelected")
     }
+	
 
     // *************************************************
     // ** Métodos asociados al Binding
