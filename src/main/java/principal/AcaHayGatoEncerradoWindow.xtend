@@ -68,9 +68,18 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
             layout = new ColumnLayout(3)
         ]
 
+        new Label(contenedorPanel)
+        armarCheckBoxesTerceraColumna(contenedorPanel)
+        new Label(contenedorPanel)
+
         armarPrimeraColumna(contenedorPanel)
         armarSegundaColumna(contenedorPanel)
         armarTerceraColumna(contenedorPanel)
+        
+        armarBotonesPrimeraColumna(contenedorPanel)
+        armarBotonesSegundaColumna(contenedorPanel)
+        armarBotonesTerceraColumna(contenedorPanel)
+        
     }
 
     /**
@@ -81,7 +90,7 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
         var primeraColumna = new Panel(contenedorPanel)
         armarTituloPrimeraColumna(primeraColumna)
         armarListaPrimeraColumna(primeraColumna)
-        armarBotonesPrimeraColumna(primeraColumna)
+        //armarBotonesPrimeraColumna(primeraColumna)
 
     }
 
@@ -134,7 +143,7 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
         var segundaColumna = new Panel(contenedorPanel)
         armarTituloSegundaColumna(segundaColumna)
         armarListaSegundaColumna(segundaColumna)
-        armarBotonesSegundaColumna(segundaColumna)
+        //armarBotonesSegundaColumna(segundaColumna)
     }
 
     /**
@@ -199,10 +208,10 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 
         var terceraColumna = new Panel(contenedorPanel)
         armarPrimerTituloTerceraColumna(terceraColumna)
-        armarCheckBoxesTerceraColumna(terceraColumna)
+        //armarCheckBoxesTerceraColumna(terceraColumna)
         armarSegundoTituloTerceraColumna(terceraColumna)
         armarListaTerceraColumna(terceraColumna)
-        armarBotonesTerceraColumna(terceraColumna)
+        //armarBotonesTerceraColumna(terceraColumna)
     }
 
     /**
