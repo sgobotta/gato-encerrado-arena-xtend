@@ -8,29 +8,20 @@ import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.widgets.CheckBox
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.List
+import java.awt.Color
+import org.uqbar.arena.widgets.TextBox
+import org.uqbar.arena.widgets.PasswordField
 
 class CreadorDeWidgets {
-		def crearLabelConTexto(Panel panel, String texto) {
+
+	// Label
+
+	def crearLabelConTexto(Panel panel, String texto) {
         new Label(panel) => [
             text = texto
         ]
 	}
-	
-	def crearPanelConColumnas(Panel panel, int cantidadDeColumnas) {
-		new Panel(panel) => [
-			layout = new ColumnLayout(cantidadDeColumnas)
-		]
-	}
-	def crearBotonConCaptionYonClick(Panel panel, String text, ()=>void bloque) {
-		this.crearBotonConCaption(panel, text) => [
-			onClick = bloque
-		]
-	}
-	def crearBotonConCaption(Panel panel, String text) {
-        new Button(panel) => [
-            caption = text
-        ]
-	}
+
 
 	def crearLabelConValue(Panel panel, String valueText) {
         new Label(panel) => [
@@ -42,16 +33,50 @@ class CreadorDeWidgets {
 			visible <=> visibleText
 		]
 	}
+	def crearLabelConTextoYColor(Panel panel, String texto, Color letra) {
+		this.crearLabelConTexto(panel, texto) => [
+			foreground = letra
+		]
+	}
+	// Boton
+
+	def crearBotonConCaption(Panel panel, String text) {
+        new Button(panel) => [
+            caption = text
+        ]
+	}
+
+	def crearBotonConCaptionYonClick(Panel panel, String captionText, ()=>void bloque) {
+		this.crearBotonConCaption(panel, captionText) => [
+			onClick = bloque
+		]
+	}
+	def crearBotonConCaptionOnClickYColorLetra(Panel panel, String captionText, ()=>void bloque, Color letra){
+		crearBotonConCaptionYonClick(panel, captionText, bloque) => [
+			foreground = letra
+		]
+	}
+	
+	def crearBotonConCaptionOnClickYColorLetraYFondo(Panel panel, String captionText, ()=>void bloque, Color letra, Color fondo){
+	crearBotonConCaptionOnClickYColorLetra(panel, captionText, bloque, letra) => [
+		background = fondo
+	]
+	}	
 	def crearBotonConCaptionYonClickYEnabled(Panel panel, String captionText, ()=>void bloque, String enabledText) {
 		this.crearBotonConCaptionYonClick(panel, captionText, bloque) => [
 			enabled <=> enabledText
 		]
 	}
+	
+	// Lista
+	
 	def crearListaConValue(Panel panel, String valueText){
 		new List(panel) => [
 			value <=> valueText
 		]
 	}
+	
+	// Checkbox
 
 	def crearCheckBoxConValueYVisibildad(Panel panel, String valueText, String visibleText) {
 		this.crearCheckBoxConValueYTransformerNullToBoolean(panel, valueText) => [
@@ -64,9 +89,37 @@ class CreadorDeWidgets {
 			(value <=> valueText).transformer = new NullToBoolean()
 		]
 	}
+	
+	// Panel
+	
+	def crearPanelConColumnas(Panel panel, int cantidadDeColumnas) {
+		new Panel(panel) => [
+			layout = new ColumnLayout(cantidadDeColumnas)
+		]
+	}
+	
+	
 	def crearPanelHorizontal(Panel panel) {
        new Panel(panel) => [
             layout = new HorizontalLayout
        ]
 	}
+	
+	// TextBox
+	
+	def crearTextBoxConValue(Panel panel, String valueText) {
+		new TextBox(panel) => [
+			value <=> valueText
+			width = 200
+		]
+	}
+	
+	// PasswordField
+	
+	def crearPasswordFieldConValue(Panel panel, String valueText) {
+		new PasswordField(panel) => [
+			value <=> valueText
+		]
+	}
+	
 }

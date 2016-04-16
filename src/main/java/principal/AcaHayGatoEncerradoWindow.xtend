@@ -64,9 +64,9 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
     /**
 	 * Primera columna: Laberintos
 	 */
-    def armarPanelDeLaberintos(Panel contenedorPanel) {
+    def armarPanelDeLaberintos(Panel panel) {
 
-        var panelDeLaberintos = new Panel(contenedorPanel)
+        var panelDeLaberintos = new Panel(panel)
         creador.crearLabelConTexto(panelDeLaberintos, "Laberintos")
         creador.crearListaConValue(panelDeLaberintos, "laberintoSeleccionado") => [
             (items <=> "usuario.laberintos").adapter = new PropertyAdapter(Laberinto, "nombreLaberinto")
@@ -90,9 +90,9 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
     /**
 	 * Segunda columna: Habitaciones
 	 */
-    def armarPanelDeHabitaciones(Panel contenedorPanel) {
+    def armarPanelDeHabitaciones(Panel panel) {
 
-        var panelDeHabitaciones = new Panel(contenedorPanel)
+        var panelDeHabitaciones = new Panel(panel)
         armarTituloPanelDeHabitaciones(panelDeHabitaciones)
         creador.crearListaConValue(panelDeHabitaciones, "habitacionSeleccionada") => [
             (items <=> "laberintoSeleccionado.habitaciones").adapter = new PropertyAdapter(Habitacion,
@@ -106,9 +106,9 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
     /**
 	 * Titulo segunda columna: habitaciones
 	 */
-    def armarTituloPanelDeHabitaciones(Panel segundaColumna) {
+    def armarTituloPanelDeHabitaciones(Panel panel) {
 
-        var habitacionesTituloPanel = creador.crearPanelConColumnas(segundaColumna, 2)
+        var habitacionesTituloPanel = creador.crearPanelConColumnas(panel, 2)
 
 		creador.crearLabelConTextoYVisibilidad(habitacionesTituloPanel, "Habitaciones de: ", "labSelected")
         creador.crearLabelConValue(habitacionesTituloPanel, "laberintoSeleccionado.nombreLaberinto")
@@ -139,8 +139,9 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
 	
 	def armarPanelDeSeleccionarHabInicialFinal(Panel panel) {
         var panelDeSeleccionarHabInicialFinal = new Panel(panel)
-        armarPrimerTituloTerceraColumna(panelDeSeleccionarHabInicialFinal)
-        armarCheckBoxesTerceraColumna(panelDeSeleccionarHabInicialFinal)
+        
+        armarTituloDelPanelSeleccionarHabComoInicialFinal(panelDeSeleccionarHabInicialFinal)
+        armarCheckBoxesDelPanelSeleccionarHabComoInicialFinal(panelDeSeleccionarHabInicialFinal)
 	}
 	
 	def armarPanelDeAcciones(Panel panel) {
@@ -150,15 +151,15 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
             (items <=> "habitacionSeleccionada.acciones").adapter = new PropertyAdapter(Accion, "nombre")
             height = 300
         ]
-        armarBotonesTerceraColumna(panelDeAcciones)
+        armarBotonesDelPanelDeAcciones(panelDeAcciones)
 	}
 	
     /**
 	 * Primer título tercer columna: habitación seleccionada 
 	 */
-    def armarPrimerTituloTerceraColumna(Panel terceraColumna) {
+    def armarTituloDelPanelSeleccionarHabComoInicialFinal(Panel panel) {
 
-        var habitacionTituloPanel = creador.crearPanelConColumnas(terceraColumna, 2)
+        var habitacionTituloPanel = creador.crearPanelConColumnas(panel, 2)
         
 		creador.crearLabelConTextoYVisibilidad(habitacionTituloPanel, "Habitación seleccionada: ", "habSelected")
         creador.crearLabelConValue(habitacionTituloPanel, "habitacionSeleccionada.nombreHabitacion")
@@ -167,9 +168,9 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
     /**
 	 * Checkboxes para una habitación
 	 */
-    def armarCheckBoxesTerceraColumna(Panel terceraColumna) {
+    def armarCheckBoxesDelPanelSeleccionarHabComoInicialFinal(Panel panel) {
 
-        var habitacionCheckBoxPanel = creador.crearPanelConColumnas(terceraColumna, 2)
+        var habitacionCheckBoxPanel = creador.crearPanelConColumnas(panel, 2)
         
         creador.crearCheckBoxConValueYVisibildad(habitacionCheckBoxPanel, "first", "habSelected")
 		creador.crearLabelConTextoYVisibilidad(habitacionCheckBoxPanel, "¿Es inicial?", "habSelected")
@@ -182,9 +183,9 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
     /**
 	 * Botonera para una habitación
 	 */
-    def armarBotonesTerceraColumna(Panel terceraColumna) {
+    def armarBotonesDelPanelDeAcciones(Panel panel) {
 
-        var botoneraHabitacionSeleccionadaPanel = creador.crearPanelHorizontal(terceraColumna)
+        var botoneraHabitacionSeleccionadaPanel = creador.crearPanelHorizontal(panel)
 
 		creador.crearBotonConCaptionYonClickYEnabled(botoneraHabitacionSeleccionadaPanel, "Agregar Acción", [|this.agregarAccion], "habSelected")
 		creador.crearBotonConCaptionYonClickYEnabled(botoneraHabitacionSeleccionadaPanel, "Quitar Acción", [|this.quitarAccion], "habSelected")
