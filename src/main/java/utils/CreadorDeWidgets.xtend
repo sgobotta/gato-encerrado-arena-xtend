@@ -110,7 +110,11 @@ class CreadorDeWidgets {
 	def crearTextBoxConValue(Panel panel, String valueText) {
 		new TextBox(panel) => [
 			value <=> valueText
-			width = 200
+		]
+	}
+	def crearTextBoxConValueYWidth(Panel panel, String valueText, int ancho){
+		crearTextBoxConValue(panel, valueText) => [
+			width = ancho
 		]
 	}
 	
@@ -119,6 +123,11 @@ class CreadorDeWidgets {
 	def crearPasswordFieldConValue(Panel panel, String valueText) {
 		new PasswordField(panel) => [
 			value <=> valueText
+		]
+	}
+	def crearPasswordFieldConValueYAncho(Panel panel, String valueText, int ancho){
+		crearPasswordFieldConValue(panel, valueText) => [
+			width = ancho
 		]
 	}
 	

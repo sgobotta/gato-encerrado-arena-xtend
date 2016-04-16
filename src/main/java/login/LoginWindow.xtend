@@ -48,10 +48,10 @@ class LoginWindow extends SimpleWindow<LoginAppModel>{
 		var formPanel = new Panel(panel)
 		
 		creador.crearLabelConTextoYColor(formPanel, "username", letra)
-		creador.crearTextBoxConValue(formPanel, "nombreDeCuentaALogear")
+		creador.crearTextBoxConValueYWidth(formPanel, "nombreDeCuentaALogear", 200)
 
 		creador.crearLabelConTextoYColor(formPanel, "password", letra)
-		creador.crearPasswordFieldConValue(formPanel, "contraseñaDeCuentaALogear")
+		creador.crearPasswordFieldConValueYAncho(formPanel, "contraseñaDeCuentaALogear", 200)
 		
 	}
 	def crearPanelDeAcciones(Panel panel, Color letra, Color fondo) {

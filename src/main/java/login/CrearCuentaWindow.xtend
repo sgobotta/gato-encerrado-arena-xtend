@@ -3,14 +3,13 @@ package login
 import org.uqbar.arena.aop.windows.TransactionalDialog
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.widgets.TextBox
-import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.arena.layout.ColumnLayout
-import org.uqbar.arena.widgets.Button
 import org.uqbar.appmodel.CrearCuentaAppModel
+import utils.CreadorDeWidgets
 
 class CrearCuentaWindow extends TransactionalDialog<CrearCuentaAppModel>{
+	
+	private CreadorDeWidgets creador = new CreadorDeWidgets()
+	
 	new(WindowOwner owner, CrearCuentaAppModel model) {
 		super(owner, model)
 		title = defaultTitle
@@ -22,20 +21,17 @@ class CrearCuentaWindow extends TransactionalDialog<CrearCuentaAppModel>{
 	
 	override protected createFormPanel(Panel mainPanel) {
 
-		this.crearPanelDeRegistroDeCuenta(mainPanel)
-		this.crearPanelDeAcciones(mainPanel)
+		var panelDeRegistro = new Panel(mainPanel)
+		this.crearPanelDeRegistroDeCuenta(panelDeRegistro)
+		var panelDeBotones = new Panel(mainPanel)
+		this.crearPanelDeAcciones(panelDeBotones)
 	}
 	
 	def crearPanelDeAcciones(Panel panel) {
 		var panelDeAcciones = new Panel(panel)
-		new Button(panelDeAcciones) => [
-			caption = "Registrar"
-			onClick = [| this.crearCuenta]
-		]
-		new Button(panelDeAcciones) => [
-			caption = "cancelar"
-			onClick = [| this.cancel]
-		]
+		
+		creador.crearBotonConCaptionYonClick(panelDeAcciones,"Registrar", [| this.crearCuenta])
+		creador.crearBotonConCaptionYonClick(panelDeAcciones,"Cancelar", [| this.cancel])
 	}
 	
 	def crearCuenta() {
@@ -45,16 +41,12 @@ class CrearCuentaWindow extends TransactionalDialog<CrearCuentaAppModel>{
 	
 	
 	def crearPanelDeRegistroDeCuenta(Panel panel) {
-		var panelDeRegistracion = new Panel(panel).layout = new ColumnLayout(2)
-		new Label(panelDeRegistracion).text = "username"
-		new TextBox(panelDeRegistracion) => [
-			value <=> "nombreCuentaACrear"
-		]
-		new Label(panelDeRegistracion).text = "password"
-		new TextBox(panelDeRegistracion) => [
-			value <=> "passwordCuentaACrear"
-		]
-		
+		var panelDeRegistracion = creador.crearPanelConColumnas(panel, 2)
+
+		creador.crearLabelConTexto(panelDeRegistracion,"Username")
+		creador.crearTextBoxConValueYWidth(panelDeRegistracion,"nombreCuentaACrear", 100)
+		creador.crearLabelConTexto(panelDeRegistracion,"Password")
+		creador.crearTextBoxConValueYWidth(panelDeRegistracion, "passwordCuentaACrear", 100)		
 	}
 
 }
