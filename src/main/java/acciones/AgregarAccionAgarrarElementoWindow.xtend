@@ -60,7 +60,7 @@ class AgregarAccionAgarrarElementoWindow extends SimpleWindow<AgregarAccionAgarr
 	        nombreItem = modelObject.nombreItem
 	    ]
 	    
-	    modelObject.objetoParaAgregarleAccion.agregarAccion(nuevaAccion)
+	    modelObject.validarInput(nuevaAccion)
 	    this.close
 	}
 	

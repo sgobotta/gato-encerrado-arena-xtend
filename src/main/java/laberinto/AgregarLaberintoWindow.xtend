@@ -62,7 +62,8 @@ class AgregarLaberintoWindow extends SimpleWindow<AgregarLaberintoAppModel> {
 		var nuevoLaberinto = new Laberinto() => [
 			nombreLaberinto = modelObject.nombreLaberinto
 		]
-		modelObject.laberintos.add(nuevoLaberinto)
-		this.close()
+		
+		modelObject.validarInput(nuevoLaberinto)
+        this.close
 	}
 }

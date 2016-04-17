@@ -57,7 +57,7 @@ class AgregarHabitacionWindow extends SimpleWindow<AgregarHabitacionAppModel> {
 		var nuevaHabitacion = new Habitacion() => [
 			nombreHabitacion = modelObject.nombreHabitacion
 		]
-		modelObject.laberintoSeleccionado.agregarHabitacion(nuevaHabitacion)
+		modelObject.validarInput(nuevaHabitacion)
 		this.close
 	}
 	
