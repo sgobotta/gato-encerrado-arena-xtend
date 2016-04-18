@@ -325,7 +325,7 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
     }
 
     def quitarHabitacion() {
-        modelObject.usuario.eliminarHabitacion(modelObject.habitacionSeleccionada, modelObject.laberintoSeleccionado)
+        modelObject.laberintoSeleccionado.eliminarHabitacion(modelObject.habitacionSeleccionada)
     }
 
     def agregarAccion() {
