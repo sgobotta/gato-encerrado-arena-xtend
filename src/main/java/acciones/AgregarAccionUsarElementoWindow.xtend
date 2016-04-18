@@ -11,7 +11,6 @@ import org.uqbar.arena.layout.HorizontalLayout
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.appmodel.AgregarAccionUsarElementoAppModel
 import org.uqbar.appmodel.AgregarAccionAppModel
-import org.uqbar.commons.model.UserException
 
 class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElementoAppModel > {
 	
@@ -85,16 +84,12 @@ class AgregarAccionUsarElementoWindow extends SimpleWindow<AgregarAccionUsarElem
 		newAppModel.habitacionSeleccionada = modelObject.habitacionSeleccionada
 		newAppModel.objetoParaAgregarleAccion = modelObject.accionARetornar
 		
-		if(modelObject.itemSeleccionado == null) {
-            throw new UserException("Debe seleccionar un item")
-        }
+		modelObject.validacionItem()
 		new AgregarAccionWindow(this, newAppModel).open()
 	}
 	
 	def agregarAccion(){
-	    
-	    
-        modelObject.validarInput(modelObject.accionARetornar)
+        modelObject.agregarAccion
         this.close
 	}
 	

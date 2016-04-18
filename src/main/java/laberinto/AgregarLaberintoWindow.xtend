@@ -11,7 +11,6 @@ import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.appmodel.AgregarLaberintoAppModel
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.Laberinto
 
 class AgregarLaberintoWindow extends SimpleWindow<AgregarLaberintoAppModel> {
 	
@@ -59,11 +58,7 @@ class AgregarLaberintoWindow extends SimpleWindow<AgregarLaberintoAppModel> {
 	}
 	
 	def agregarLaberinto() {
-		var nuevoLaberinto = new Laberinto() => [
-			nombreLaberinto = modelObject.nombreLaberinto
-		]
-		
-		modelObject.validarInput(nuevoLaberinto)
+		modelObject.agregarLaberinto()
         this.close
 	}
 }

@@ -11,7 +11,6 @@ import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.Habitacion
 
 class AgregarHabitacionWindow extends SimpleWindow<AgregarHabitacionAppModel> {
 	new(WindowOwner parent, AgregarHabitacionAppModel model) {
@@ -54,10 +53,7 @@ class AgregarHabitacionWindow extends SimpleWindow<AgregarHabitacionAppModel> {
 	}
 	
 	def agregarHabitacion() {
-		var nuevaHabitacion = new Habitacion() => [
-			nombreHabitacion = modelObject.nombreHabitacion
-		]
-		modelObject.validarInput(nuevaHabitacion)
+		modelObject.agregarHabitacion()
 		this.close
 	}
 	

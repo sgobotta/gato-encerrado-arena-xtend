@@ -11,7 +11,6 @@ import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.appmodel.AgregarAccionAgarrarElementoAppModel
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.acciones.AgarrarItem
 
 class AgregarAccionAgarrarElementoWindow extends SimpleWindow<AgregarAccionAgarrarElementoAppModel> {
 	
@@ -55,12 +54,7 @@ class AgregarAccionAgarrarElementoWindow extends SimpleWindow<AgregarAccionAgarr
 	}
 	
 	def agregarAccion() {
-	    
-	    var nuevaAccion = new AgarrarItem() => [
-	        nombreItem = modelObject.nombreItem
-	    ]
-	    
-	    modelObject.validarInput(nuevaAccion)
+	    modelObject.agregarAccion()
 	    this.close
 	}
 	

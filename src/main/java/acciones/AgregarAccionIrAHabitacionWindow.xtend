@@ -13,7 +13,6 @@ import org.uqbar.appmodel.AgregarAccionAppModel
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.bindings.PropertyAdapter
-import org.uqbar.acciones.IrAHabitacion
 
 
 class AgregarAccionIrAHabitacionWindow extends SimpleWindow<AgregarAccionAppModel > {
@@ -62,12 +61,8 @@ class AgregarAccionIrAHabitacionWindow extends SimpleWindow<AgregarAccionAppMode
 	}
 	
 	def agregarAccion() {
-	    
-	    var nuevaAccion = new IrAHabitacion() => [
-	        habitacion = modelObject.habitacionSeleccionada
-	    ]
-	    
-	    modelObject.objetoParaAgregarleAccion.agregarAccion(nuevaAccion)
+
+	    modelObject.agregarAccion()
 	    this.close
 	}
 	
