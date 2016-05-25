@@ -310,7 +310,7 @@ class AcaHayGatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
     // *************************************************
     def agregarLaberinto() {
         var agregarLaberintoModel = new AgregarLaberintoAppModel
-        agregarLaberintoModel.laberintos = modelObject.usuario.laberintos
+        agregarLaberintoModel.usuarioSeleccionado = modelObject.usuario
         new AgregarLaberintoWindow(this, agregarLaberintoModel).open()
     }
 

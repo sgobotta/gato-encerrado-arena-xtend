@@ -66,7 +66,6 @@ class AgregarAccionWindow extends SimpleWindow<AgregarAccionAppModel> {
 	def crearAccionDeAgarrarElemento() {
 	    
 	    var newAppModel = new AgregarAccionAgarrarElementoAppModel()
-	    newAppModel.laberintoSeleccionado = modelObject.laberintoSeleccionado
 	    newAppModel.habitacionSeleccionada = modelObject.habitacionSeleccionada
 	    newAppModel.objetoParaAgregarleAccion = modelObject.objetoParaAgregarleAccion
 	    this.close
